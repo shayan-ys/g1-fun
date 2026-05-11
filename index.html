@@ -1,0 +1,1630 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>G1 in a Day · Ontario Driver's Test, Babe-Edition</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bagel+Fat+One&family=Caveat:wght@500;700&family=DM+Sans:ital,wght@0,400;0,500;0,700;1,500&family=DM+Mono:wght@500&family=Unbounded:wght@700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --cream:#f7eed4;
+  --cream-deep:#efe2b8;
+  --ink:#1a140f;
+  --ink-soft:#2c241c;
+  --cherry:#d4291f;
+  --cherry-deep:#a51d16;
+  --yolk:#f4c528;
+  --mint:#0fb37c;
+  --mint-deep:#067a52;
+  --rose:#ffb3c1;
+  --shadow:0 4px 0 var(--ink);
+  --shadow-sm:0 2px 0 var(--ink);
+  --shadow-lg:0 8px 0 var(--ink);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;scroll-padding-top:80px}
+body{
+  font-family:"DM Sans",system-ui,sans-serif;
+  background:var(--cream);
+  color:var(--ink);
+  line-height:1.55;
+  font-size:17px;
+  background-image:
+    radial-gradient(circle at 12% 22%,rgba(212,41,31,.05) 0,transparent 8%),
+    radial-gradient(circle at 88% 78%,rgba(15,179,124,.05) 0,transparent 9%),
+    repeating-linear-gradient(0deg,transparent 0 28px,rgba(26,20,15,.018) 28px 29px);
+  min-height:100vh;
+}
+::selection{background:var(--yolk);color:var(--ink)}
+img,svg{display:block}
+a{color:inherit}
+
+/* ── progress bar ── */
+.progress{
+  position:fixed;top:0;left:0;height:5px;background:var(--cherry);
+  width:0%;z-index:60;transition:width .15s linear;
+  box-shadow:0 1px 0 var(--ink);
+}
+
+/* ── sticky nav ── */
+nav.top{
+  position:sticky;top:0;z-index:50;
+  background:var(--ink);color:var(--cream);
+  border-bottom:3px solid var(--cherry);
+  display:flex;align-items:center;gap:1.2rem;
+  padding:.7rem 1.5rem;font-weight:500;
+  font-size:.92rem;
+  overflow-x:auto;white-space:nowrap;
+  scrollbar-width:none;
+}
+nav.top::-webkit-scrollbar{display:none}
+nav.top .brand{
+  font-family:"Unbounded",sans-serif;font-weight:800;
+  font-size:1.1rem;color:var(--yolk);letter-spacing:.5px;
+  flex-shrink:0;
+}
+nav.top a{
+  color:var(--cream);text-decoration:none;
+  padding:.3rem .65rem;border-radius:999px;
+  transition:background .15s,color .15s;
+}
+nav.top a:hover,nav.top a.active{
+  background:var(--yolk);color:var(--ink);
+}
+
+/* ── hero ── */
+.hero{
+  padding:6rem 6vw 5rem;
+  position:relative;overflow:hidden;
+  border-bottom:3px solid var(--ink);
+}
+.hero::before{
+  content:"";position:absolute;inset:0;
+  background:
+    radial-gradient(ellipse 60% 80% at 80% 30%,rgba(244,197,40,.4) 0,transparent 60%),
+    radial-gradient(ellipse 40% 60% at 15% 75%,rgba(255,179,193,.5) 0,transparent 60%);
+  z-index:0;
+}
+.hero>*{position:relative;z-index:1}
+.kicker{
+  display:inline-block;
+  background:var(--ink);color:var(--cream);
+  font-family:"DM Mono",monospace;font-size:.75rem;
+  letter-spacing:.2em;text-transform:uppercase;
+  padding:.4rem .9rem;border-radius:999px;
+  margin-bottom:1.4rem;font-weight:500;
+}
+.hero h1{
+  font-family:"Bagel Fat One",cursive;
+  font-size:clamp(2.8rem,9vw,7rem);
+  line-height:.92;letter-spacing:-1.5px;
+  color:var(--ink);
+  max-width:14ch;
+  margin-bottom:.4rem;
+}
+.hero h1 .red{color:var(--cherry);display:inline-block;transform:rotate(-3deg)}
+.hero h1 .underline{
+  background:var(--yolk);padding:0 .15em;
+  display:inline-block;transform:rotate(1deg);
+  box-shadow:var(--shadow-sm);
+}
+.hero .scribble{
+  font-family:"Caveat",cursive;font-weight:700;
+  font-size:clamp(1.4rem,3vw,1.9rem);
+  color:var(--cherry-deep);
+  margin:1.5rem 0 2rem;
+  transform:rotate(-1.5deg);
+  display:inline-block;
+}
+.hero .lede{
+  font-size:1.2rem;max-width:46ch;color:var(--ink-soft);
+  margin-bottom:2.5rem;
+}
+.hero .cta-row{display:flex;gap:1rem;flex-wrap:wrap}
+.btn{
+  display:inline-block;font-family:"DM Sans",sans-serif;
+  font-weight:700;font-size:1rem;
+  padding:.95rem 1.7rem;border-radius:14px;
+  border:3px solid var(--ink);
+  text-decoration:none;cursor:pointer;
+  background:var(--cherry);color:var(--cream);
+  box-shadow:var(--shadow);
+  transition:transform .12s,box-shadow .12s;
+}
+.btn:hover{transform:translate(-2px,-2px);box-shadow:6px 6px 0 var(--ink)}
+.btn:active{transform:translate(2px,2px);box-shadow:2px 2px 0 var(--ink)}
+.btn.ghost{background:var(--cream);color:var(--ink)}
+.btn.mint{background:var(--mint);color:var(--cream)}
+
+/* hero floaty signs */
+.float-sign{
+  position:absolute;width:90px;height:90px;
+  filter:drop-shadow(4px 4px 0 var(--ink));
+  z-index:0;
+}
+.float-sign.s1{top:14%;right:6%;animation:bob 4s ease-in-out infinite}
+.float-sign.s2{bottom:18%;right:18%;animation:bob 5s ease-in-out infinite -2s}
+.float-sign.s3{top:30%;left:3%;animation:bob 6s ease-in-out infinite -1s;width:70px;height:70px}
+@keyframes bob{0%,100%{transform:translateY(0) rotate(-4deg)}50%{transform:translateY(-12px) rotate(3deg)}}
+@media (max-width:700px){.float-sign{display:none}}
+
+/* ── section base ── */
+section{
+  padding:5rem 6vw;
+  border-bottom:3px solid var(--ink);
+  position:relative;
+}
+section h2{
+  font-family:"Bagel Fat One",cursive;
+  font-size:clamp(2rem,5vw,3.8rem);
+  line-height:1;letter-spacing:-1px;
+  margin-bottom:.6rem;
+}
+section h2 .accent{color:var(--cherry)}
+section h2 .scribble-tag{
+  font-family:"Caveat",cursive;font-weight:700;
+  font-size:1.4rem;color:var(--mint-deep);
+  display:block;margin-bottom:.8rem;
+  transform:rotate(-2deg);letter-spacing:0;
+}
+section .blurb{
+  max-width:55ch;font-size:1.1rem;color:var(--ink-soft);
+  margin-bottom:2.5rem;
+}
+
+/* ── stats strip ── */
+#vibe{background:var(--ink);color:var(--cream)}
+#vibe h2{color:var(--cream)}
+#vibe h2 .scribble-tag{color:var(--yolk)}
+#vibe .blurb{color:var(--cream);opacity:.85} /* default ink-soft is unreadable on the dark section */
+.stat-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:1.5rem;margin-top:2rem;
+}
+.stat{
+  background:var(--cream);color:var(--ink);
+  border:3px solid var(--cream);
+  padding:1.6rem 1.4rem;border-radius:18px;
+  position:relative;overflow:hidden;
+}
+.stat:nth-child(1){background:var(--yolk)}
+.stat:nth-child(2){background:var(--rose)}
+.stat:nth-child(3){background:var(--mint);color:var(--cream)}
+.stat:nth-child(4){background:var(--cherry);color:var(--cream)}
+.stat .num{
+  font-family:"Bagel Fat One",cursive;
+  font-size:3.2rem;line-height:1;letter-spacing:-1px;
+  margin-bottom:.4rem;
+}
+.stat .lbl{font-weight:700;font-size:.95rem}
+.stat .sub{font-size:.85rem;opacity:.8;margin-top:.3rem}
+
+/* ── tabs ── */
+.tabs{
+  display:flex;flex-wrap:wrap;gap:.6rem;
+  margin-bottom:2.5rem;
+}
+.tab-btn{
+  font-family:"DM Sans",sans-serif;font-weight:700;
+  font-size:1rem;padding:.7rem 1.3rem;
+  background:var(--cream-deep);color:var(--ink);
+  border:3px solid var(--ink);border-radius:999px;
+  cursor:pointer;box-shadow:var(--shadow-sm);
+  transition:transform .1s;
+}
+.tab-btn:hover{transform:translateY(-2px)}
+.tab-btn.active{background:var(--cherry);color:var(--cream);box-shadow:0 0 0 var(--ink)}
+.tab-panel{display:none}
+.tab-panel.active{display:block;animation:fadein .3s ease}
+@keyframes fadein{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+
+/* ── flashcards / cards ── */
+.card-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+  gap:1.4rem;margin-top:1.5rem;
+}
+.card{
+  background:#fffdf5;
+  border:3px solid var(--ink);border-radius:18px;
+  padding:1.5rem;box-shadow:var(--shadow);
+  position:relative;overflow:hidden;
+  transition:transform .15s,box-shadow .15s;
+}
+.card:hover{transform:translate(-2px,-2px);box-shadow:var(--shadow-lg)}
+.card .tag{
+  display:inline-block;font-family:"DM Mono",monospace;
+  font-size:.7rem;letter-spacing:.15em;text-transform:uppercase;
+  background:var(--ink);color:var(--cream);
+  padding:.25rem .6rem;border-radius:6px;
+  margin-bottom:.8rem;
+}
+.card h3{
+  font-family:"Unbounded",sans-serif;font-weight:700;
+  font-size:1.3rem;line-height:1.2;
+  margin-bottom:.7rem;letter-spacing:-.3px;
+}
+.card p{margin-bottom:.6rem}
+.card p:last-child{margin-bottom:0}
+.card.cherry{background:var(--cherry);color:var(--cream)}
+.card.cherry .tag{background:var(--cream);color:var(--ink)}
+.card.mint{background:var(--mint);color:var(--cream)}
+.card.mint .tag{background:var(--cream);color:var(--ink)}
+.card.yolk{background:var(--yolk)}
+.card.rose{background:var(--rose)}
+.card.ink{background:var(--ink);color:var(--cream)}
+.card.ink .tag{background:var(--yolk);color:var(--ink)}
+
+.big-num{
+  font-family:"Bagel Fat One",cursive;
+  font-size:3rem;line-height:1;
+  display:block;margin:.3rem 0 .5rem;
+}
+
+/* ── flippy flashcards ── */
+.flip-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+  gap:1.2rem;margin-top:1.5rem;
+}
+.flip{
+  perspective:1000px;height:200px;cursor:pointer;
+}
+.flip-inner{
+  position:relative;width:100%;height:100%;
+  transition:transform .6s;
+  transform-style:preserve-3d;
+}
+.flip.flipped .flip-inner{transform:rotateY(180deg)}
+.flip-face{
+  position:absolute;inset:0;
+  border:3px solid var(--ink);border-radius:16px;
+  padding:1.2rem;display:flex;flex-direction:column;
+  justify-content:center;align-items:center;text-align:center;
+  backface-visibility:hidden;box-shadow:var(--shadow);
+}
+.flip-front{background:var(--yolk)}
+.flip-front .q{font-family:"Unbounded",sans-serif;font-weight:700;font-size:1.15rem;line-height:1.25;margin-bottom:.6rem}
+.flip-front .hint{font-family:"Caveat",cursive;font-size:1.1rem;color:var(--ink-soft);font-weight:700}
+.flip-front .hint::before{content:"↻ "}
+.flip-back{background:var(--mint);color:var(--cream);transform:rotateY(180deg)}
+.flip-back .a{font-weight:700;font-size:1.05rem;line-height:1.3}
+
+/* ── sign gallery ── */
+.sign-gallery{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(160px,1fr));
+  gap:1.2rem;margin-top:1.5rem;
+}
+.sign{
+  background:#fffdf5;
+  border:3px solid var(--ink);border-radius:14px;
+  padding:1.2rem .8rem;text-align:center;
+  box-shadow:var(--shadow-sm);
+  transition:transform .15s,box-shadow .15s;
+  position:relative;
+}
+.sign:hover{transform:translate(-2px,-2px);box-shadow:var(--shadow)}
+.sign svg{margin:0 auto .7rem;width:84px;height:84px}
+.sign .name{font-weight:700;font-size:.92rem;margin-bottom:.2rem}
+.sign .meaning{font-size:.78rem;color:var(--ink-soft);line-height:1.35}
+
+/* ── color row ── */
+.color-row{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(160px,1fr));
+  gap:1rem;margin-top:1.5rem;
+}
+.color-chip{
+  border:3px solid var(--ink);border-radius:14px;
+  padding:1rem;box-shadow:var(--shadow-sm);
+}
+.color-chip .swatch{
+  width:100%;height:60px;border:3px solid var(--ink);
+  border-radius:8px;margin-bottom:.7rem;
+}
+.color-chip strong{font-family:"Unbounded",sans-serif;font-weight:800;font-size:1rem;letter-spacing:.3px}
+.color-chip p{font-size:.85rem;margin-top:.3rem}
+
+/* ── trick questions accordion ── */
+.trick{
+  background:#fffdf5;border:3px solid var(--ink);border-radius:14px;
+  margin-bottom:1rem;overflow:hidden;
+  box-shadow:var(--shadow-sm);
+}
+.trick summary{
+  font-family:"Unbounded",sans-serif;font-weight:700;font-size:1.05rem;
+  padding:1rem 1.3rem;cursor:pointer;list-style:none;
+  display:flex;justify-content:space-between;align-items:center;
+  background:var(--cream-deep);
+}
+.trick summary::-webkit-details-marker{display:none}
+.trick summary::after{
+  content:"+";font-size:1.6rem;
+  transition:transform .2s;
+}
+.trick[open] summary::after{transform:rotate(45deg)}
+.trick[open] summary{background:var(--yolk)}
+.trick .body{padding:1.2rem 1.3rem;border-top:3px solid var(--ink)}
+.trick .body p{margin-bottom:.5rem}
+.trick .body .answer{
+  background:var(--mint);color:var(--cream);
+  padding:.7rem 1rem;border-radius:8px;
+  font-weight:700;margin-top:.7rem;
+}
+
+/* ── quiz ── */
+#quiz{background:linear-gradient(180deg,var(--cream) 0,var(--cream-deep) 100%)}
+.quiz-box{
+  background:#fffdf5;border:3px solid var(--ink);
+  border-radius:20px;padding:2rem;
+  box-shadow:var(--shadow-lg);
+  max-width:780px;margin:0 auto;
+}
+.quiz-q{margin-bottom:.6rem}
+.quiz-q .qnum{
+  font-family:"DM Mono",monospace;font-size:.75rem;
+  letter-spacing:.2em;text-transform:uppercase;
+  background:var(--ink);color:var(--cream);
+  padding:.25rem .6rem;border-radius:6px;
+  display:inline-block;margin-bottom:.7rem;
+}
+.quiz-q h3{
+  font-family:"Unbounded",sans-serif;font-weight:700;
+  font-size:1.25rem;line-height:1.25;
+  margin-bottom:1.2rem;letter-spacing:-.2px;
+}
+.choices{display:grid;gap:.6rem;margin-bottom:1rem}
+.choice{
+  display:flex;align-items:center;gap:.8rem;
+  padding:.85rem 1rem;border:3px solid var(--ink);
+  border-radius:12px;background:var(--cream-deep);
+  cursor:pointer;font-weight:500;
+  transition:transform .1s,background .15s;
+  text-align:left;font-family:inherit;font-size:.98rem;
+  width:100%;color:var(--ink);
+}
+.choice:hover:not(:disabled){background:var(--yolk);transform:translateY(-1px)}
+.choice .letter{
+  font-family:"Bagel Fat One",cursive;
+  background:var(--ink);color:var(--cream);
+  width:32px;height:32px;border-radius:50%;
+  display:grid;place-items:center;flex-shrink:0;
+  font-size:1rem;
+}
+.choice.correct{background:var(--mint);color:var(--cream);border-color:var(--mint-deep)}
+.choice.correct .letter{background:var(--cream);color:var(--mint-deep)}
+.choice.wrong{background:var(--cherry);color:var(--cream);border-color:var(--cherry-deep)}
+.choice.wrong .letter{background:var(--cream);color:var(--cherry-deep)}
+.choice:disabled{cursor:default}
+.feedback{
+  background:var(--ink);color:var(--cream);
+  padding:1rem 1.2rem;border-radius:10px;margin-top:1rem;
+  font-family:"Caveat",cursive;font-weight:700;font-size:1.25rem;
+  display:none;
+}
+.feedback.show{display:block;animation:fadein .25s}
+.quiz-controls{
+  display:flex;justify-content:space-between;align-items:center;
+  margin-top:1.5rem;flex-wrap:wrap;gap:1rem;
+}
+.score-meter{
+  font-family:"DM Mono",monospace;font-size:.95rem;
+  background:var(--ink);color:var(--cream);
+  padding:.5rem .9rem;border-radius:8px;
+}
+.quiz-result{
+  display:none;text-align:center;padding:1.5rem 1rem;
+}
+.quiz-result.show{display:block;animation:fadein .3s}
+.quiz-result .big{
+  font-family:"Bagel Fat One",cursive;
+  font-size:4rem;line-height:1;color:var(--cherry);
+  margin-bottom:.5rem;
+}
+.quiz-result h3{
+  font-family:"Bagel Fat One",cursive;
+  font-size:1.8rem;margin-bottom:.7rem;line-height:1;
+}
+.quiz-result p{font-size:1.1rem;color:var(--ink-soft);margin-bottom:1.5rem}
+
+/* ── tldr / cheat sheet ── */
+#tldr{background:var(--ink);color:var(--cream)}
+#tldr h2{color:var(--cream)}
+#tldr h2 .accent{color:var(--yolk)}
+#tldr h2 .scribble-tag{color:var(--rose)}
+#tldr .blurb{color:var(--cream);opacity:.85} /* same reason as #vibe */
+.cheat-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+  gap:1.2rem;margin-top:2rem;
+}
+.cheat{
+  background:var(--cream);color:var(--ink);
+  border-radius:14px;padding:1.3rem;
+  border:3px solid var(--cream);
+}
+.cheat h4{
+  font-family:"Bagel Fat One",cursive;font-size:1.2rem;
+  margin-bottom:.7rem;letter-spacing:-.3px;
+  display:flex;align-items:center;gap:.5rem;
+}
+.cheat ul{list-style:none}
+.cheat li{
+  padding:.4rem 0;border-bottom:1px dashed rgba(26,20,15,.2);
+  font-size:.94rem;
+}
+.cheat li:last-child{border:none}
+.cheat strong{color:var(--cherry-deep)}
+
+/* ── footer ── */
+footer{
+  background:var(--cream);
+  padding:3rem 6vw 2rem;
+  border-top:6px solid var(--ink);
+  text-align:center;
+}
+footer .smol{
+  font-family:"Caveat",cursive;font-weight:700;font-size:1.4rem;
+  margin-bottom:1rem;color:var(--cherry-deep);
+}
+footer .sources{
+  font-family:"DM Mono",monospace;font-size:.78rem;
+  color:var(--ink-soft);max-width:60ch;margin:0 auto;
+  line-height:1.7;
+}
+
+/* small details */
+.pull{
+  font-family:"Caveat",cursive;font-weight:700;
+  font-size:1.3rem;color:var(--cherry-deep);
+  display:block;margin:.6rem 0 .2rem;
+  transform:rotate(-1deg);
+}
+/* .pull defaults to cherry-deep, which disappears on saturated/dark cards */
+.card.cherry .pull{color:var(--cream)}
+.card.mint .pull{color:var(--ink)}
+.card.ink .pull{color:var(--yolk)}
+.divider{
+  text-align:center;font-family:"Bagel Fat One",cursive;
+  font-size:1.5rem;letter-spacing:1rem;
+  color:var(--ink);opacity:.3;margin:3rem 0;
+}
+.callout{
+  background:var(--rose);border:3px solid var(--ink);
+  border-radius:14px;padding:1.2rem 1.4rem;margin:1.5rem 0;
+  box-shadow:var(--shadow-sm);
+  font-weight:500;
+}
+.callout strong{font-family:"Bagel Fat One",cursive;font-size:1.1rem;letter-spacing:.3px}
+
+table.lil{
+  width:100%;border-collapse:collapse;margin:1rem 0;
+  background:#fffdf5;border:3px solid var(--ink);border-radius:8px;
+  overflow:hidden;
+}
+table.lil th,table.lil td{
+  padding:.6rem .8rem;text-align:left;
+  border-bottom:1px solid rgba(26,20,15,.15);font-size:.92rem;
+}
+table.lil th{background:var(--ink);color:var(--cream);font-family:"DM Mono",monospace;font-size:.78rem;letter-spacing:.1em;text-transform:uppercase}
+table.lil td{color:var(--ink)} /* force ink — inside coloured cards td would otherwise inherit cream/white and disappear on the white table bg */
+table.lil tr:last-child td{border-bottom:none}
+
+/* mobile */
+@media(max-width:700px){
+  body{font-size:16px}
+  section{padding:3.5rem 5vw}
+  .hero{padding:4rem 5vw 3.5rem}
+}
+</style>
+</head>
+<body>
+
+<div class="progress" id="progress"></div>
+
+<nav class="top">
+  <span class="brand">G1 ✦ in a day</span>
+  <a href="#vibe">vibe check</a>
+  <a href="#study">study</a>
+  <a href="#signs">signs</a>
+  <a href="#test-day">test day</a>
+  <a href="#quiz">quiz</a>
+  <a href="#tricks">tricks</a>
+  <a href="#tldr">tl;dr</a>
+</nav>
+
+<!-- ───────── HERO ───────── -->
+<header class="hero">
+  <span class="kicker">Ontario · 2026 edition · zero gatekeeping</span>
+  <h1>your <span class="red">G1</span><br>but <span class="underline">make it</span><br>fun.</h1>
+  <p class="scribble">no it's not that deep. you got this bestie.</p>
+  <p class="lede">A fully condensed, slightly unhinged, 100% <em>actually accurate</em> Ontario G1 study page. Built for short attention spans, tested against the official MTO Driver's Handbook. Read it once, take the quiz, walk into DriveTest like you own the place.</p>
+  <div class="cta-row">
+    <a href="#study" class="btn">start studying →</a>
+    <a href="#quiz" class="btn ghost">just quiz me</a>
+    <a href="#tldr" class="btn mint">night-before panic mode</a>
+  </div>
+
+  <!-- floaty signs -->
+  <!-- floaty signs reuse gallery sources: Stop=R1-1, Yield=R1-2, Warning curve=W1-2L -->
+  <svg class="float-sign s1" viewBox="0 0 2160 2160" xmlns="http://www.w3.org/2000/svg">
+    <polygon fill="#fff" points="1527.4 0 632.65 0 0 632.65 0 1527.4 632.65 2160 1527.4 2160 2160 1527.4 2160 632.65"/>
+    <path d="M1526.417,2.254l631.329,631.329v892.834l-631.329,631.329H633.583L2.254,1526.417V633.583L633.583,2.254h892.834M1527.351,0h-894.7L0,632.649v894.7L632.649,2160h894.7L2160,1527.351v-894.7L1527.351,0Z"/>
+    <polygon points="655.02 2106 54 1505 54 655.02 655.02 54 1505 54 2106 655.02 2106 1505 1505 2106" fill="#af1e2d"/>
+    <path fill="#fff" d="m382.95 1351.7c55.8 0 101.43-50.58 101.43-108.72-0.09-153.36-268.83-153-268.83-348.75 0-103.59 81.18-186.84 185.13-186.84 101.52 0 180.18 78.21 182.7 186.93h-99.09c-2.52-50.49-38.071-83.34-83.7-83.34-48.24 0-86.22 35.28-86.22 83.25 0 43.111 27.09 60.3 60.66 81.361 97.38 58.77 208.26 129.69 208.26 267.48 0 116.55-88.829 209.7-200.43 209.7-126.81 0-202.86-107.28-202.86-225h101.61c0 61.29 30.33 123.93 101.34 123.93z"/>
+    <path fill="#fff" d="M866.161,1440H762.3V816.034H630.541V720h367.38v96.031H866.161Z"/>
+    <path fill="#fff" d="m1057 1078.5c0-377.01 174.87-370.98 213.66-370.98s211.32-5.76 211.32 371.25c0 379.71-172.53 373.77-211.32 373.77s-213.66 5.939-213.66-374.04zm212.49-270c-20.521 0-113.31-4.23-113.31 270.54 0 276.75 92.79 272.52 113.31 272.52s113.22 4.23 113.22-272.52c0-274.77-92.699-270.54-113.22-270.54z"/>
+    <path fill="#fff" d="m1679.9 1124.2v315.81h-103.32v-720h214.29c113.49 0 189.09 81.183 189.09 202.14 0 131.4-68.13 202.05-189.09 202.05zm0-98.55h105.84c60.48 0 93.33-37.8 93.33-103.5 0-60.661-38.161-101.07-93.24-101.07h-105.93z"/>
+  </svg>
+  <svg class="float-sign s2" viewBox="0 0 2381.6 2100.7" xmlns="http://www.w3.org/2000/svg">
+    <path fill="#fff" d="m1315.5 2028.7 1046.6-1812.7c55.426-96-13.856-216-124.71-216h-2093.2c-110.85 0-180.13 120-124.71 216l1046.6 1812.7c55.426 96 193.99 96 249.42 0z"/>
+    <path d="m2237.4 2.2536c51.244 0 97.134 26.494 122.76 70.873s25.622 97.368 0 141.75l-1046.6 1812.7c-25.622 44.379-71.512 70.873-122.76 70.873s-97.134-26.494-122.76-70.873l-1046.6-1812.7c-25.622-44.378-25.622-97.368 0-141.75s71.512-70.873 122.76-70.873h2093.2m0-2.2537h-2093.2c-110.85 1e-4 -180.13 120-124.71 216l1046.6 1812.7c27.713 48 76.21 72 124.71 72s96.995-24 124.71-72l1046.6-1812.7c55.426-96-13.856-216-124.71-216z"/>
+    <path fill="#af1e2d" d="m1190.8 2046.7a89.084 89.084 0 0 1-77.942-45l-1046.6-1812.7a90 90 0 0 1 77.942-135h2093.2a90 90 0 0 1 77.942 135l-1046.6 1812.7a89.082 89.082 0 0 1-77.942 45z"/>
+    <path fill="#fff" d="m767.75 414h846.09c69.282 0 112.58 75 77.942 135l-423.05 732.74c-34.641 60-121.24 60-155.88 0l-423.05-732.74c-34.641-60 8.6603-135 77.942-135z"/>
+    <text x="1190" y="980" text-anchor="middle" font-family="'Highway Gothic','Arial Narrow',sans-serif" font-size="290" fill="#af1e2d" font-weight="700">YIELD</text>
+  </svg>
+  <svg class="float-sign s3" viewBox="0 0 253.996 254" xmlns="http://www.w3.org/2000/svg">
+    <path d="M250.604 118.775 135.225 3.392c-4.526-4.523-11.924-4.523-16.45 0L3.392 118.775c-4.523 4.523-4.523 11.924 0 16.454l115.383 115.379c4.526 4.523 11.924 4.523 16.45 0l115.38-115.38c4.522-4.53 4.522-11.93 0-16.453" fill="#fcd116"/>
+    <path d="M248.407 120.971 133.027 5.591c-3.312-3.316-8.738-3.316-12.058 0L5.59 120.972c-3.315 3.316-3.315 8.742 0 12.058l115.38 115.383c3.32 3.316 8.746 3.316 12.058 0l115.38-115.383c3.316-3.316 3.316-8.742 0-12.058" fill="#000"/>
+    <path d="M245.108 124.266 129.736 8.883a3.886 3.886 0 0 0-5.468 0L8.888 124.266a3.875 3.875 0 0 0 0 5.465l115.38 115.38a3.873 3.873 0 0 0 5.468 0l115.372-115.38a3.862 3.862 0 0 0 0-5.465" fill="#fcd116"/>
+    <path d="M118.567 114.432c-1.207 4-2.41 8.001-3.613 11.998-.472 1.57-.825 3.327-1.658 4.76-1.806 3.107-6.16 3.679-8.674 1.054-1.39-1.45-2.145-3.58-3.013-5.352-1.785-3.62-3.57-7.239-5.352-10.858-7.376-14.961-14.753-29.92-22.126-44.88 16.693 0 33.394 0 50.09-.01h11.914c2.096 0 4.46-.223 6.505.313 3.405.897 5.652 4.752 3.302 7.913-1.09 1.464-2.564 2.794-3.799 4.156-2.805 3.1-5.606 6.202-8.41 9.3 12.926 5.87 25.47 14.876 33.14 27.029 7.627 12.104 8.826 25.238 8.798 39.162-.014 9.977-.035 19.953-.053 29.93 0 .2.116 1.57-.099 1.57h-20.807c-1.372 0-6.216.941-6.216-.787 0-4.057-.007-8.11-.007-12.168-.007-8.452.07-16.912-.021-25.368-.067-6.67-1.52-12.968-5.147-18.623-5.627-8.784-15.847-14.481-24.754-19.142" fill="#000"/>
+  </svg>
+</header>
+
+<!-- ───────── VIBE / STATS ───────── -->
+<section id="vibe">
+  <span class="scribble-tag">the vibe check 💅</span>
+  <h2>okay so what <span class="accent" style="color:var(--yolk)">actually</span> is this test</h2>
+  <p class="blurb">It's two mini-tests pretending to be one. You write them at any DriveTest centre. Walk-in, no appointment for most. Bring ID + your eyeballs (literal eye exam first). Touchscreen, untimed, ~25 minutes if you go slow.</p>
+  <div class="stat-grid">
+    <div class="stat">
+      <div class="num">40</div>
+      <div class="lbl">questions total</div>
+      <div class="sub">20 signs · 20 rules</div>
+    </div>
+    <div class="stat">
+      <div class="num">16/20</div>
+      <div class="lbl">to pass each section</div>
+      <div class="sub">that's 80%, both halves, no carrying</div>
+    </div>
+    <div class="stat">
+      <div class="num">$159<span style="font-size:1.6rem">.75</span></div>
+      <div class="lbl">all-in package</div>
+      <div class="sub">covers test + G2 road test + 5-yr licence</div>
+    </div>
+    <div class="stat">
+      <div class="num">∞</div>
+      <div class="lbl">time limit</div>
+      <div class="sub">it's untimed!! breathe!!</div>
+    </div>
+  </div>
+  <div class="callout" style="margin-top:2.5rem;background:var(--cream);color:var(--ink)">
+    <strong>The deal-breaker:</strong> you have to pass <em>both</em> sections independently. Acing rules but bombing signs = fail overall. So please do not skip the signs gallery. <span class="pull" style="display:inline">i'm begging.</span>
+  </div>
+</section>
+
+<!-- ───────── STUDY (TABS) ───────── -->
+<section id="study">
+  <span class="scribble-tag">the actual content ✨</span>
+  <h2>the stuff <span class="accent">they'll ask you</span></h2>
+  <p class="blurb">Tap a tab. Tap a flashcard to flip. The numbers in red are the ones the test loves the most — those are the "memorize verbatim" tier.</p>
+
+  <div class="tabs" role="tablist">
+    <button class="tab-btn active" data-tab="rules">🚦 Rules of the Road</button>
+    <button class="tab-btn" data-tab="behaviour">🚗 Behind the Wheel</button>
+    <button class="tab-btn" data-tab="g1rules">🆕 G1-Specific</button>
+    <button class="tab-btn" data-tab="penalties">💸 Don't Get a Ticket</button>
+  </div>
+
+  <!-- TAB 1: RULES -->
+  <div class="tab-panel active" id="tab-rules">
+    <div class="card-grid">
+
+      <div class="card cherry">
+        <span class="tag">speed limits</span>
+        <h3>The default trio</h3>
+        <p>If there's no sign posted, Ontario assumes:</p>
+        <p>🏙 <strong>50 km/h</strong> in cities, towns, villages</p>
+        <p>🌾 <strong>80 km/h</strong> in rural areas</p>
+        <p>🛣 <strong>100 km/h</strong> on most 400-series highways (always obey posted)</p>
+      </div>
+
+      <div class="card yolk">
+        <span class="tag">following distance</span>
+        <h3>The 2-second rule</h3>
+        <p>Pick a fixed point (sign, pole). When the car ahead passes it, count <em>"one-Mississippi, two-Mississippi"</em>. If you reach the point before two — too close.</p>
+        <p class="pull">In bad weather: 3+ seconds. In snow: 4+. Common sense, kinda.</p>
+      </div>
+
+      <div class="card mint">
+        <span class="tag">signalling</span>
+        <h3>Distance ≠ vibes</h3>
+        <p>Signal <strong>at least 30m before</strong> a turn in a 50 km/h zone.</p>
+        <p>Signal <strong>at least 150m before</strong> on a highway.</p>
+        <p>Also signal before slowing, stopping, lane changing, leaving a parked spot.</p>
+      </div>
+
+      <div class="card">
+        <span class="tag">4-way stop</span>
+        <h3>Who goes first?</h3>
+        <p>1. <strong>First to fully stop</strong> goes first.</p>
+        <p>2. Tie? <strong>Yield to the right.</strong></p>
+        <p>3. Turning left? Yield to anyone going straight.</p>
+        <p class="pull">Test loves this. Memorize it.</p>
+      </div>
+
+      <div class="card rose">
+        <span class="tag">roundabouts</span>
+        <h3>Yield LEFT, not right</h3>
+        <p>This trips everyone up. In a roundabout, you yield to traffic <strong>already inside</strong> — which comes from your <strong>left</strong>.</p>
+        <p>Travel counter-clockwise. Don't change lanes inside. Signal your exit.</p>
+        <p>Missed your exit? Just go around again. Don't reverse. Ever.</p>
+      </div>
+
+      <div class="card ink">
+        <span class="tag">school bus</span>
+        <h3>The Stop That Saves Lives™</h3>
+        <p>🟡 <strong>Amber flashing</strong> = bus is slowing → prepare to stop</p>
+        <p>🔴 <strong>Red flashing + stop arm out</strong> = full stop, both directions on undivided roads</p>
+        <p>Stop at least <strong>20m back</strong>. Wait until the lights stop or it moves.</p>
+        <p class="pull">Pass it = $400–$2,000 fine + 6 demerits. Don't.</p>
+      </div>
+
+      <div class="card yolk">
+        <span class="tag">pedestrian crossover (PXO)</span>
+        <h3>Wait til they're ALL the way across</h3>
+        <p>Not just past your lane. <strong>Across the entire road, on the sidewalk.</strong> Then go.</p>
+        <p>Bonus rule: never pass another vehicle within <strong>30m</strong> of a PXO. Even if there's no pedestrian.</p>
+      </div>
+
+      <div class="card cherry">
+        <span class="tag">passing</span>
+        <h3>Yellow line decoder</h3>
+        <table class="lil"><tr><th>line</th><th>can you pass?</th></tr>
+        <tr><td>Broken yellow on your side</td><td>yes ✓</td></tr>
+        <tr><td>Solid yellow on your side</td><td>no ✗</td></tr>
+        <tr><td>Double solid yellow</td><td>nobody passes</td></tr>
+        <tr><td>Solid + broken (you're on broken)</td><td>yes ✓</td></tr></table>
+      </div>
+
+      <div class="card mint">
+        <span class="tag">emergency vehicles</span>
+        <h3>4-step pull-over</h3>
+        <p>1. Slow down<br>2. Signal<br>3. Pull right (clear of intersections)<br>4. Stop until they pass</p>
+        <p class="pull">Stopped emergency or tow truck on the shoulder? Slow down + move one lane over if safe. (Move-Over Law.)</p>
+      </div>
+
+      <div class="card">
+        <span class="tag">railway crossings</span>
+        <h3>If gates drop, you stop</h3>
+        <p>Stop <strong>at least 5 metres</strong> from the nearest rail when:</p>
+        <p>· Lights flashing<br>· Gates lowering, lowered, or rising<br>· Stop sign at the crossing<br>· Train approaching</p>
+        <p>Stalled on tracks? Get out. Walk <strong>30m+</strong> away. Call 911.</p>
+        <p class="pull">Tested often: school buses ALWAYS stop at rail crossings. Train or no train.</p>
+      </div>
+
+      <div class="card mint">
+        <span class="tag">HOV lanes</span>
+        <h3>Min 2 humans (or a green plate)</h3>
+        <p>HOV = High-Occupancy Vehicle. You need <strong>at least 2 people</strong> in the car to use it.</p>
+        <p>Exception: <strong>green-plate</strong> EVs and plug-in hybrids can use it solo. Buses + emergency vehicles always allowed.</p>
+        <p>Open 24/7 unless posted. Cross only at the dashed entry/exit gaps. Misuse = <strong>3 demerits</strong>.</p>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- TAB 2: BEHAVIOUR -->
+  <div class="tab-panel" id="tab-behaviour">
+    <div class="card-grid">
+
+      <div class="card yolk">
+        <span class="tag">skids</span>
+        <h3>Steer where you wanna go</h3>
+        <p>Car slides? <strong>Don't slam the brakes.</strong> Ease off the gas. Steer in the direction you actually want to travel.</p>
+        <p class="pull">Common wrong answer: "steer opposite the skid". Nope. Steer with your destination.</p>
+      </div>
+
+      <div class="card mint">
+        <span class="tag">hydroplaning</span>
+        <h3>Water-skiing but make it scary</h3>
+        <p>Tires lose grip on standing water. Don't brake hard, don't accelerate. Ease off the gas, hold the wheel <strong>straight</strong>, wait for tires to regain contact.</p>
+      </div>
+
+      <div class="card cherry">
+        <span class="tag">night driving</span>
+        <h3>Headlights = 150m of vision</h3>
+        <p>Use headlights between sunset & sunrise, and any time visibility is under <strong>150m</strong> (fog, heavy rain, snow).</p>
+        <p>Foggy? <strong>Low beams only.</strong> High beams reflect off moisture and blind you.</p>
+      </div>
+
+      <div class="card">
+        <span class="tag">mirror checks</span>
+        <h3>Every 5 seconds</h3>
+        <p>Glance at mirrors every ~5 seconds. Scan 15–20 seconds ahead on highways. Eyes constantly moving — don't fixate.</p>
+      </div>
+
+      <div class="card rose">
+        <span class="tag">parking distances</span>
+        <h3>The metre trio</h3>
+        <table class="lil"><tr><th>from</th><th>min distance</th></tr>
+        <tr><td>Fire hydrant</td><td><strong>3 m</strong></td></tr>
+        <tr><td>Uncontrolled intersection</td><td><strong>9 m</strong></td></tr>
+        <tr><td>Traffic light intersection</td><td><strong>15 m</strong></td></tr></table>
+        <p class="pull">3-9-15. Just memorize the rhythm.</p>
+      </div>
+
+      <div class="card ink">
+        <span class="tag">parking on a hill</span>
+        <h3>Wheel-turn cheat</h3>
+        <p>🔼 Uphill <em>with curb</em>: turn wheels <strong>left</strong> (away from curb)</p>
+        <p>🔽 Downhill <em>with curb</em>: turn wheels <strong>right</strong> (toward curb)</p>
+        <p>🛤 Hill <em>no curb</em>: turn wheels <strong>right</strong> (toward shoulder), either direction</p>
+        <p class="pull">Logic: if brakes fail, car rolls <em>away</em> from traffic.</p>
+      </div>
+
+      <div class="card mint">
+        <span class="tag">tires</span>
+        <h3>Tread depth ≥ 1.5 mm</h3>
+        <p>Below that, replace. Or when the wear indicators touch the road. Winter tires aren't legally required in Ontario (but most insurers give a discount).</p>
+      </div>
+
+      <div class="card yolk">
+        <span class="tag">cyclists</span>
+        <h3>Give 'em a metre</h3>
+        <p>Pass cyclists with at least <strong>1 metre</strong> of space. Less than that = fine + 2 demerits.</p>
+        <p>Cyclists can take the full lane — treat them like a car.</p>
+      </div>
+
+      <div class="card">
+        <span class="tag">trucks</span>
+        <h3>If you can't see their mirrors…</h3>
+        <p>…the trucker can't see <em>you</em>. Big trucks have huge blind spots in front, directly behind, and along both sides of the cab.</p>
+        <p>They make wide right turns — never squeeze between a turning truck and the curb.</p>
+      </div>
+
+      <div class="card rose">
+        <span class="tag">car seat stages</span>
+        <h3>The kid-seat ladder</h3>
+        <table class="lil"><tr><th>kid</th><th>seat</th></tr>
+        <tr><td>≤9 kg (infant)</td><td>Rear-facing</td></tr>
+        <tr><td>9–18 kg (toddler)</td><td>Forward-facing</td></tr>
+        <tr><td>18–36 kg, &lt;145 cm, &lt;8 yr</td><td>Booster</td></tr>
+        <tr><td>Hits ANY of: 36 kg / 145 cm / 8 yr</td><td>Regular belt</td></tr></table>
+        <p class="pull">Booster exit = ANY one of the three thresholds, not all three.</p>
+        <p>Never put a rear-facing seat in front of an active airbag.</p>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- TAB 3: G1-SPECIFIC -->
+  <div class="tab-panel" id="tab-g1rules">
+    <div class="card-grid">
+
+      <div class="card cherry">
+        <span class="tag">G1 rule #1</span>
+        <h3>Zero. Alcohol.</h3>
+        <p>Your BAC must be <strong>0.00</strong>. Always. No "one drink". No "I had a sip". Zero.</p>
+        <p>Same applies to G2, M1, M2, and anyone 21 or under.</p>
+      </div>
+
+      <div class="card mint">
+        <span class="tag">supervisor</span>
+        <h3>You can never drive alone</h3>
+        <p>Front passenger seat must have a <strong>fully licensed driver (Class G+)</strong> with at least <strong>4 years</strong> of driving experience.</p>
+        <p>That person also has to be under 0.05 BAC. Don't let drunk uncle "supervise".</p>
+      </div>
+
+      <div class="card yolk">
+        <span class="tag">curfew</span>
+        <h3>Bed by midnight 🌙</h3>
+        <p>No driving between <strong>midnight and 5 a.m.</strong> Any day. Any reason. Even with a supervisor.</p>
+      </div>
+
+      <div class="card">
+        <span class="tag">no big highways</span>
+        <h3>400-series? not yet</h3>
+        <p>Cannot drive on any 400-series highway, the QEW, DVP, Gardiner, E.C. Row, or Conestoga.</p>
+        <p class="pull">Exception: you're with a licensed driving instructor.</p>
+      </div>
+
+      <div class="card rose">
+        <span class="tag">passengers</span>
+        <h3>One belt per body</h3>
+        <p>Every passenger must have a working seatbelt. If anyone in the car is unbelted, you get a min <strong>30-day suspension</strong>. No sharing belts. No seven cousins in the back.</p>
+      </div>
+
+      <div class="card ink">
+        <span class="tag">timeline</span>
+        <h3>How long until G2?</h3>
+        <p>Standard wait: <strong>12 months</strong> from your G1 date.</p>
+        <p>With approved Beginner Driver Education (BDE) course: <strong>8 months</strong>. Saves you 4.</p>
+        <p class="pull">G2 → full G is another 12 months (no BDE shortcut there).</p>
+      </div>
+
+      <div class="card cherry">
+        <span class="tag">two test favourites</span>
+        <h3>Two random rules they LOVE</h3>
+        <p>1. <strong>Never lend your licence.</strong> To anyone. Ever. It's illegal full-stop. (MTO sample-test classic.)</p>
+        <p>2. If a <strong>police officer</strong> is directing traffic and the signal disagrees with them — <strong>obey the cop</strong>. Officers override every sign and light.</p>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- TAB 4: PENALTIES -->
+  <div class="tab-panel" id="tab-penalties">
+    <p class="blurb">Demerit points are the test's favourite trick category. Memorize the worst ones — those are the ones the test will throw at you.</p>
+    <div class="card-grid">
+
+      <div class="card cherry">
+        <span class="tag">7 demerits 💀</span>
+        <h3>Leaving the scene</h3>
+        <p>Leaving the scene of a collision = 7 demerits (max single-offence). Failing to stop for police = same.</p>
+      </div>
+
+      <div class="card">
+        <span class="tag">6 demerits</span>
+        <h3>Big-girl offences</h3>
+        <p>· Careless driving<br>· Racing / street racing<br>· Speeding 50+ over (on 80+ roads)<br>· Speeding 40+ over (on roads under 80)<br>· Failing to stop for school bus</p>
+      </div>
+
+      <div class="card yolk">
+        <span class="tag">4 demerits</span>
+        <h3>Mid offences</h3>
+        <p>· Speeding 30–49 km over<br>· Following too closely<br>· Failing to yield at PXO</p>
+      </div>
+
+      <div class="card mint">
+        <span class="tag">3 demerits</span>
+        <h3>The basics</h3>
+        <p>· Speeding 16–29 km over<br>· Improper turn / failing to signal<br>· Disobeying stop sign<br>· HOV misuse<br>· Failing to move over for emergency</p>
+      </div>
+
+      <div class="card rose">
+        <span class="tag">your suspension threshold</span>
+        <h3>9 points = bye 👋</h3>
+        <p>Novice (G1, G2, M1, M2) drivers get a <strong>60-day suspension at 9 points</strong>.</p>
+        <p>Fully licensed: 30-day suspension at <strong>15 points</strong>. Y'all have buffer. We don't.</p>
+      </div>
+
+      <div class="card ink">
+        <span class="tag">stunt driving</span>
+        <h3>The career-ender</h3>
+        <p>Triggered by:</p>
+        <p>· <strong>40+</strong> over on roads under 80<br>· <strong>50+</strong> over on roads 80+<br>· <strong>150 km/h</strong> anywhere</p>
+        <p class="pull">Roadside: 30-day suspension + 14-day vehicle impound. Court: $2k–$10k fine, 1-yr to lifetime ban.</p>
+      </div>
+
+      <div class="card cherry">
+        <span class="tag">distracted driving</span>
+        <h3>Phone in hand = no.</h3>
+        <p>For novices (you, hi):</p>
+        <p>1st offence: <strong>30-day suspension</strong></p>
+        <p>2nd: <strong>90-day suspension</strong></p>
+        <p>3rd: licence <strong>cancelled</strong> + kicked out of GLS</p>
+        <p>Hands-free is fine. Voice GPS is fine. Holding the phone = not fine.</p>
+      </div>
+
+      <div class="card mint">
+        <span class="tag">the $2,000 collision rule</span>
+        <h3>When to call police</h3>
+        <p>Required if: anyone's injured, total damage >$2,000, or a crime happened (impaired, hit-and-run).</p>
+        <p>Under $2k & no injuries? Just exchange info. Take photos.</p>
+      </div>
+
+      <div class="card ink">
+        <span class="tag">BAC for everyone else</span>
+        <h3>Full-G drinking limits (FYI tier)</h3>
+        <p>You're zero, but the test sometimes asks about full-G drivers:</p>
+        <p>· <strong>0.05–0.079</strong> = "warn range" → roadside 3-day suspension + $250</p>
+        <p>· <strong>0.08+</strong> = Criminal Code offence → 90-day roadside + 7-day impound</p>
+        <p class="pull">G1/G2/M1/M2/under-22 = always 0.00. No warn range for us.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ───────── SIGNS ───────── -->
+<section id="signs">
+  <span class="scribble-tag">visual recognition core 👁</span>
+  <h2>signs are like <span class="accent">flashcards</span> the test pretends are questions</h2>
+  <p class="blurb">The signs part is mostly "what does this picture mean?". Good news: if you know the <em>shape and colour</em>, you can usually guess right — even on a sign you've never seen. Learn these 9 shapes and you're 80% there.</p>
+
+  <h3 style="font-family:'Bagel Fat One',cursive;font-size:1.6rem;margin:2rem 0 .8rem">colour decoder 🎨</h3>
+  <div class="color-row">
+    <div class="color-chip"><div class="swatch" style="background:#d4291f"></div><strong>Red</strong><p>Stop. Don't do this. Danger.</p></div>
+    <div class="color-chip"><div class="swatch" style="background:#f4c528"></div><strong>Yellow</strong><p>Warning — careful, something ahead.</p></div>
+    <div class="color-chip"><div class="swatch" style="background:#ff8c00"></div><strong>Orange</strong><p>Roadwork. People building stuff right now.</p></div>
+    <div class="color-chip"><div class="swatch" style="background:#0fb37c"></div><strong>Green</strong><p>Where to go. How far. Just info.</p></div>
+    <div class="color-chip"><div class="swatch" style="background:#1d4ed8"></div><strong>Blue</strong><p>Stuff you can stop for: gas, food, hospital.</p></div>
+    <div class="color-chip"><div class="swatch" style="background:#7a4a1c"></div><strong>Brown</strong><p>Parks, tourist spots, history.</p></div>
+    <div class="color-chip"><div class="swatch" style="background:#fff"></div><strong>White</strong><p>Rules you must follow.</p></div>
+    <div class="color-chip"><div class="swatch" style="background:#c8e62b"></div><strong>Fluo Yellow-Green</strong><p>School + crosswalks. Slow way down — kids around.</p></div>
+  </div>
+
+  <h3 style="font-family:'Bagel Fat One',cursive;font-size:1.6rem;margin:2.5rem 0 .8rem">the shapes 📐</h3>
+  <div class="sign-gallery">
+
+    <div class="sign">
+      <!-- Source: https://upload.wikimedia.org/wikipedia/commons/c/c0/MUTCD_R1-1.svg (PD-USGov-DOT) -->
+      <svg viewBox="0 0 2160 2160" xmlns="http://www.w3.org/2000/svg">
+        <polygon fill="#fff" points="1527.4 0 632.65 0 0 632.65 0 1527.4 632.65 2160 1527.4 2160 2160 1527.4 2160 632.65"/>
+        <path d="M1526.417,2.254l631.329,631.329v892.834l-631.329,631.329H633.583L2.254,1526.417V633.583L633.583,2.254h892.834M1527.351,0h-894.7L0,632.649v894.7L632.649,2160h894.7L2160,1527.351v-894.7L1527.351,0Z"/>
+        <polygon points="655.02 2106 54 1505 54 655.02 655.02 54 1505 54 2106 655.02 2106 1505 1505 2106" fill="#af1e2d"/>
+        <path fill="#fff" d="m382.95 1351.7c55.8 0 101.43-50.58 101.43-108.72-0.09-153.36-268.83-153-268.83-348.75 0-103.59 81.18-186.84 185.13-186.84 101.52 0 180.18 78.21 182.7 186.93h-99.09c-2.52-50.49-38.071-83.34-83.7-83.34-48.24 0-86.22 35.28-86.22 83.25 0 43.111 27.09 60.3 60.66 81.361 97.38 58.77 208.26 129.69 208.26 267.48 0 116.55-88.829 209.7-200.43 209.7-126.81 0-202.86-107.28-202.86-225h101.61c0 61.29 30.33 123.93 101.34 123.93z"/>
+        <path fill="#fff" d="M866.161,1440H762.3V816.034H630.541V720h367.38v96.031H866.161Z"/>
+        <path fill="#fff" d="m1057 1078.5c0-377.01 174.87-370.98 213.66-370.98s211.32-5.76 211.32 371.25c0 379.71-172.53 373.77-211.32 373.77s-213.66 5.939-213.66-374.04zm212.49-270c-20.521 0-113.31-4.23-113.31 270.54 0 276.75 92.79 272.52 113.31 272.52s113.22 4.23 113.22-272.52c0-274.77-92.699-270.54-113.22-270.54z"/>
+        <path fill="#fff" d="m1679.9 1124.2v315.81h-103.32v-720h214.29c113.49 0 189.09 81.183 189.09 202.14 0 131.4-68.13 202.05-189.09 202.05zm0-98.55h105.84c60.48 0 93.33-37.8 93.33-103.5 0-60.661-38.161-101.07-93.24-101.07h-105.93z"/>
+      </svg>
+      <div class="name">Stop</div>
+      <div class="meaning">Red octagon. Full stop — wheels not moving. Look both ways, then go if clear.</div>
+    </div>
+
+    <div class="sign">
+      <!-- Source: https://upload.wikimedia.org/wikipedia/commons/3/39/MUTCD_R1-2.svg (PD-USGov-DOT) -->
+      <svg viewBox="0 0 2381.6 2100.7" xmlns="http://www.w3.org/2000/svg">
+        <path fill="#fff" d="m1315.5 2028.7 1046.6-1812.7c55.426-96-13.856-216-124.71-216h-2093.2c-110.85 0-180.13 120-124.71 216l1046.6 1812.7c55.426 96 193.99 96 249.42 0z"/>
+        <path d="m2237.4 2.2536c51.244 0 97.134 26.494 122.76 70.873s25.622 97.368 0 141.75l-1046.6 1812.7c-25.622 44.379-71.512 70.873-122.76 70.873s-97.134-26.494-122.76-70.873l-1046.6-1812.7c-25.622-44.378-25.622-97.368 0-141.75s71.512-70.873 122.76-70.873h2093.2m0-2.2537h-2093.2c-110.85 1e-4 -180.13 120-124.71 216l1046.6 1812.7c27.713 48 76.21 72 124.71 72s96.995-24 124.71-72l1046.6-1812.7c55.426-96-13.856-216-124.71-216z"/>
+        <path fill="#af1e2d" d="m1190.8 2046.7a89.084 89.084 0 0 1-77.942-45l-1046.6-1812.7a90 90 0 0 1 77.942-135h2093.2a90 90 0 0 1 77.942 135l-1046.6 1812.7a89.082 89.082 0 0 1-77.942 45z"/>
+        <path fill="#fff" d="m767.75 414h846.09c69.282 0 112.58 75 77.942 135l-423.05 732.74c-34.641 60-121.24 60-155.88 0l-423.05-732.74c-34.641-60 8.6603-135 77.942-135z"/>
+        <text x="1190" y="980" text-anchor="middle" font-family="'Highway Gothic','Arial Narrow',sans-serif" font-size="290" fill="#af1e2d" font-weight="700">YIELD</text>
+      </svg>
+      <div class="name">Yield</div>
+      <div class="meaning">Upside-down triangle. "Yield" = let other cars go first. Slow down, wait, then go.</div>
+    </div>
+
+    <div class="sign">
+      <!-- Source: https://upload.wikimedia.org/wikipedia/commons/9/9d/MUTCD_W1-2L.svg (PD-USGov-DOT) -->
+      <svg viewBox="0 0 253.996 254" xmlns="http://www.w3.org/2000/svg">
+        <path d="M250.604 118.775 135.225 3.392c-4.526-4.523-11.924-4.523-16.45 0L3.392 118.775c-4.523 4.523-4.523 11.924 0 16.454l115.383 115.379c4.526 4.523 11.924 4.523 16.45 0l115.38-115.38c4.522-4.53 4.522-11.93 0-16.453" fill="#fcd116"/>
+        <path d="M248.407 120.971 133.027 5.591c-3.312-3.316-8.738-3.316-12.058 0L5.59 120.972c-3.315 3.316-3.315 8.742 0 12.058l115.38 115.383c3.32 3.316 8.746 3.316 12.058 0l115.38-115.383c3.316-3.316 3.316-8.742 0-12.058" fill="#000"/>
+        <path d="M245.108 124.266 129.736 8.883a3.886 3.886 0 0 0-5.468 0L8.888 124.266a3.875 3.875 0 0 0 0 5.465l115.38 115.38a3.873 3.873 0 0 0 5.468 0l115.372-115.38a3.862 3.862 0 0 0 0-5.465" fill="#fcd116"/>
+        <path d="M118.567 114.432c-1.207 4-2.41 8.001-3.613 11.998-.472 1.57-.825 3.327-1.658 4.76-1.806 3.107-6.16 3.679-8.674 1.054-1.39-1.45-2.145-3.58-3.013-5.352-1.785-3.62-3.57-7.239-5.352-10.858-7.376-14.961-14.753-29.92-22.126-44.88 16.693 0 33.394 0 50.09-.01h11.914c2.096 0 4.46-.223 6.505.313 3.405.897 5.652 4.752 3.302 7.913-1.09 1.464-2.564 2.794-3.799 4.156-2.805 3.1-5.606 6.202-8.41 9.3 12.926 5.87 25.47 14.876 33.14 27.029 7.627 12.104 8.826 25.238 8.798 39.162-.014 9.977-.035 19.953-.053 29.93 0 .2.116 1.57-.099 1.57h-20.807c-1.372 0-6.216.941-6.216-.787 0-4.057-.007-8.11-.007-12.168-.007-8.452.07-16.912-.021-25.368-.067-6.67-1.52-12.968-5.147-18.623-5.627-8.784-15.847-14.481-24.754-19.142" fill="#000"/>
+      </svg>
+      <div class="name">Warning (yellow ◇)</div>
+      <div class="meaning">Yellow diamond = something ahead (curve, hill, bump). Slow down, eyes up.</div>
+    </div>
+
+    <div class="sign">
+      <!-- Source: https://upload.wikimedia.org/wikipedia/commons/b/ba/MUTCD_CW20-1.svg (PD-USGov-DOT) -->
+      <svg viewBox="0 0 108.958 108.944" xmlns="http://www.w3.org/2000/svg">
+        <path d="M51.56 107.432 1.207 57.08a4.137 4.137 0 0 1 0-5.84L51.557.887A4.139 4.139 0 0 1 57.4.885l50.352 50.356a4.135 4.135 0 0 1 0 5.839L57.4 107.432c-1.588 1.587-4.25 1.59-5.84 0" fill="#dd7500"/>
+        <path d="M52.362 106.612 2.027 56.278c-1.158-1.16-1.155-3.078 0-4.238L52.359 1.707c1.16-1.159 3.076-1.156 4.24 0l50.33 50.335a3.016 3.016 0 0 1 0 4.236L56.6 106.612c-1.161 1.153-3.079 1.156-4.237 0" fill="#000"/>
+        <path d="M53.482 105.462 3.177 55.157a1.403 1.403 0 0 1 0-1.996L53.482 2.857a1.401 1.401 0 0 1 1.995 0l50.305 50.304c.556.54.556 1.459-.002 1.999l-50.3 50.302a1.404 1.404 0 0 1-1.998 0" fill="#dd7500"/>
+        <text x="54.5" y="47" text-anchor="middle" font-family="'Highway Gothic','Arial Narrow',sans-serif" font-size="12" fill="#000" font-weight="700">ROAD</text>
+        <text x="54.5" y="62" text-anchor="middle" font-family="'Highway Gothic','Arial Narrow',sans-serif" font-size="12" fill="#000" font-weight="700">WORK</text>
+      </svg>
+      <div class="name">Construction (orange ◇)</div>
+      <div class="meaning">Same diamond but ORANGE = workers on the road right now. Slow way down — tickets cost 2× here.</div>
+    </div>
+
+    <div class="sign">
+      <!-- Source: https://upload.wikimedia.org/wikipedia/commons/1/1d/MUTCD_S1-1.svg (PD-USGov-DOT) -->
+      <svg viewBox="0 0 90 90" xmlns="http://www.w3.org/2000/svg">
+        <g transform="translate(254.7134 -2.584729)">
+          <path fill="#cdff00" d="m-252.7434 43.143479 38.52125-38.52c1.12375-1.26625 2.79-2.03875 4.5-2.03875 1.71125 0 3.3975.74875 4.52375 2.03875l38.51625 38.52c1.2425 1.12375 1.96875 2.765 1.96875 4.4525v38.98875c0 3.30375-2.695 5.99875-5.99875 5.99875h-78.00125c-3.30375 0-6-2.695-6-5.99875v-38.98875c0-1.6875.72875-3.32875 1.97-4.4525"/>
+          <path fill-rule="evenodd" d="m-213.09465 5.7008544.19875-.2125c.49125-.48375 1.03625-.83 1.68-1.075.1125-.04.22375-.075.3375-.10875.74875-.1975 1.45625-.20625 2.21-.0325l.23.06375c.77375.2425 1.4275.6375 1.98625 1.2275l38.6875 38.7025.20125.1925c.46875.485.80125 1.0225 1.03375 1.655.1275.375.20625.74125.24375 1.135.0075.12.01125.2375.0125.35875l-.005 39.205c-.0175.2275-.045.4425-.085.66375-.05.2175-.10875.42-.17875.63-.13625.345-.29.645-.49.955-.12625.1775-.255.34125-.39625.505-.25375.26625-.50875.48625-.8075.69875-.18375.11875-.365.22125-.5575.3225-.34125.15375-.6625.2625-1.02625.34625-.22375.04125-.4375.06875-.665.085l-78.2075.005c-.2375-.005-.46-.01875-.695-.05125-.22-.03875-.4275-.085-.64125-.14625-.35125-.12-.65875-.25875-.98-.445-.1825-.11625-.3525-.23875-.52375-.3725-.2775-.24-.51-.48375-.73625-.7725-.12625-.1775-.23875-.35375-.3475-.54125-.17-.3325-.29375-.645-.39625-1.00375-.05-.22-.0875-.43-.11625-.65125l-.02375-.47375.00125-39.085.0125-.2325c.07375-.795.325-1.5025.765-2.1675.1775-.25625.37-.485.5925-.70375l38.68625-38.67625z"/>
+          <path fill="#cdff00" fill-rule="evenodd" d="m-211.35965 7.3597294.17-.1825c.3475-.34375.7825-.56125 1.2675-.62125.63-.06125 1.27125.17625 1.7075.635l38.78375 38.8025.16375.15375c.39125.405.5875.91375.595 1.475l-.00375 39.0675-.02125.205c-.0925.5175-.32875.91875-.725 1.2625-.24375.1925-.485.3175-.785.4025-.19.045-.36.05875-.555.06375l-78.0575-.0025-.20375-.02125c-.5175-.09375-.9175-.3275-1.2625-.7225-.1925-.2475-.31625-.48625-.4025-.78625-.04375-.19125-.06-.36125-.065-.5575l.00125-38.98875c.0225-.545.24125-1.04875.63-1.4325l38.7625-38.7525z"/>
+          <path fill-rule="evenodd" d="M-200.0883975 29.584754c-.375.29875-.77625.5675-1.21875.75-.45.1825-.92.29125-1.40625.3125-.34625.015-.69.0038-1.03125-.0625l-.15625 1-2.34375 2.15625-2.90625 9.8125-4.25 1.75-2.40625-5.3125-3.6875-2.09375c-.29625.16875-.5775.3425-.90625.4375-.30625.0875-.61625.15375-.9375.15625-.4675.0075-.92375-.03125-1.375-.15625h-.09375l-2.59375 2.75-2.5625 8.21875-4.90625 4.65625 1.40625 1.34375 5.8125-3.84375.75-3.0625.9375 2.84375-3.75 11.5625 1.3125.40625-3.90625 14.75 2.09375.75 5.5625-14.75 2.25.15625 6.15625 14.3125 2.1875-.65625-4.4375-13.90625c.4475-.0975.89375-.215 1.34375-.3125.3925-.09.77375-.22 1.15625-.34375l-2.25-6.90625 5.59375-1.34375-1.15625-5.65625h-1.34375l.90625-1.40625-.15625-.34375 4.8125-1.3125 1.25-2.1875 1.84375 7.6875-3.59375 11.3125-1 17.21875 3.9375.34375 1.40625-14.3125 2.40625-5.34375 1.84375 7.34375 6.8125 12.71875 3.59375-1.75-6.40625-13.21875.65625-11.40625 6.8125-2-1.8125-6.65625-1.75.25.5625-3.59375-5.5625-10.5625-3-1.34375-.5-1.15625zm3.09375 10.0625 3 4.59375-.75 2.8125-1 .25-1.25-7.65625zm-19.5625 6.65625.75 1.59375-.6875 2-.90625.15625.84375-3.75zM-199.2509 25.588479c-.04 1.5425-.6775 2.83875-1.96375 3.72625-1.4925 1.03-3.48875.99625-4.98-.0225-1.2175-.83-1.96625-2.22875-1.9625-3.70375 0-1.7925 1.09625-3.425 2.73875-4.13 1.38125-.58875 2.96875-.4425 4.2125.405 1.21125.8275 1.99 2.25 1.955 3.725"/>
+          <path fill-rule="evenodd" d="M-217.4834 33.662229c-.05 1.735-1.04875 3.22625-2.655 3.91375-1.875.8-4.04.0775-5.15125-1.6125-1.085-1.64875-.8325-3.92625.55375-5.31625 1.3875-1.39375 3.66875-1.625 5.31625-.55 1.15125.75625 1.97875 2.165 1.93625 3.565"/>
+        </g>
+      </svg>
+      <div class="name">School zone</div>
+      <div class="meaning">House-shape, bright yellow-green = kids around. Slow way down.</div>
+    </div>
+
+    <div class="sign">
+      <!-- Ontario MAXIMUM sign — hand-crafted (Ontario uses "MAXIMUM" not "SPEED LIMIT"; no PD MUTCD equivalent) -->
+      <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+        <rect x="3" y="3" width="94" height="94" fill="#fff" stroke="#111" stroke-width="4" rx="4"/>
+        <rect x="9" y="9" width="82" height="82" fill="#fff" stroke="#111" stroke-width="1.5" rx="2"/>
+        <text x="50" y="38" text-anchor="middle" font-family="'Highway Gothic','Arial Narrow',sans-serif" font-size="14" fill="#111" font-weight="700">MAXIMUM</text>
+        <text x="50" y="83" text-anchor="middle" font-family="'Highway Gothic','Arial Narrow',sans-serif" font-size="52" fill="#111" font-weight="700">50</text>
+      </svg>
+      <div class="name">Speed limit</div>
+      <div class="meaning">White box with a number = the fastest you're allowed. Going over = ticket.</div>
+    </div>
+
+    <div class="sign">
+      <!-- Destination guide sign — hand-crafted (green rectangle, Ontario standard; PD shape/text) -->
+      <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+        <rect x="3" y="16" width="94" height="68" fill="#006b3c" stroke="#111" stroke-width="3" rx="3"/>
+        <text x="50" y="46" text-anchor="middle" font-family="'Highway Gothic','Arial Narrow',sans-serif" font-size="15" fill="#fff" font-weight="700">Toronto</text>
+        <text x="50" y="67" text-anchor="middle" font-family="'Highway Gothic','Arial Narrow',sans-serif" font-size="13" fill="#fff">42 km &#x2192;</text>
+      </svg>
+      <div class="name">Destination (green)</div>
+      <div class="meaning">Green sign = which way to a place + how far. Just info, no rule.</div>
+    </div>
+
+    <div class="sign">
+      <!-- Service (hospital) sign — hand-crafted blue square with white H (MUTCD D9-2 shape; PD-shape) -->
+      <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+        <rect x="3" y="3" width="94" height="94" fill="#003087" stroke="#111" stroke-width="3" rx="3"/>
+        <rect x="26" y="20" width="16" height="60" fill="#fff"/>
+        <rect x="58" y="20" width="16" height="60" fill="#fff"/>
+        <rect x="26" y="41" width="48" height="18" fill="#fff"/>
+      </svg>
+      <div class="name">Service (blue)</div>
+      <div class="meaning">Blue sign = stuff you can stop for: gas, food, hospital, hotel.</div>
+    </div>
+
+    <div class="sign">
+      <!-- Source: https://upload.wikimedia.org/wikipedia/commons/0/09/MUTCD_W10-1.svg (PD-USGov-DOT) -->
+      <svg viewBox="-15 -15 30 30" xmlns="http://www.w3.org/2000/svg">
+        <circle r="15" fill="#fcd116"/>
+        <circle r="14.313" fill="none" stroke="#000" stroke-width=".625"/>
+        <path d="m10-10-20 20m0-20 20 20" fill="none" stroke="#000" stroke-width="3"/>
+        <path id="w10rr" transform="matrix(.02734 0 0 .02734 -12.375 -3.5)" d="M0 0v256h44V156h78a78 78 0 0 0 0-156M44 44h78a34 34 0 0 1 0 68H44m68 44 43.94 100H204l-53.605-122"/>
+        <use x="19.5" href="#w10rr"/>
+      </svg>
+      <div class="name">Railway (advance)</div>
+      <div class="meaning">Yellow circle with X = train tracks ahead. Slow down, look + listen for a train.</div>
+    </div>
+
+    <div class="sign">
+      <!-- Crossbuck (MUTCD R15-1) — hand-crafted; PD-shape (standard X-board crossing marker) -->
+      <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+        <rect width="100" height="100" fill="#f0efe8" rx="5"/>
+        <rect x="6" y="44" width="88" height="12" rx="3" fill="#e8e8e8" stroke="#111" stroke-width="2" transform="rotate(38 50 50)"/>
+        <rect x="6" y="44" width="88" height="12" rx="3" fill="#e8e8e8" stroke="#111" stroke-width="2" transform="rotate(-38 50 50)"/>
+        <text x="50" y="14" text-anchor="middle" font-family="'Highway Gothic','Arial Narrow',sans-serif" font-size="11" fill="#111" font-weight="700">RAILROAD</text>
+        <text x="50" y="93" text-anchor="middle" font-family="'Highway Gothic','Arial Narrow',sans-serif" font-size="11" fill="#111" font-weight="700">CROSSING</text>
+      </svg>
+      <div class="name">Crossbuck</div>
+      <div class="meaning">Big white X = you're AT the tracks. Stop if a train is coming or the lights flash.</div>
+    </div>
+
+    <div class="sign">
+      <!-- Source: https://upload.wikimedia.org/wikipedia/commons/7/7d/MUTCD_R5-1.svg (PD-USGov-DOT) -->
+      <svg viewBox="0 0 2160 2160" xmlns="http://www.w3.org/2000/svg">
+        <rect fill="#fff" width="2160" height="2160" rx="135"/>
+        <path d="M2025,2.2536A132.7467,132.7467,0,0,1,2157.7463,135V2025A132.7467,132.7467,0,0,1,2025,2157.7463H135A132.7467,132.7467,0,0,1,2.2536,2025V135A132.7467,132.7467,0,0,1,135,2.2536ZM135,0A135,135,0,0,0,0,135V2025a135,135,0,0,0,135,135H2025a135,135,0,0,0,135-135V135A135,135,0,0,0,2025,0Z"/>
+        <circle cx="1080" cy="1080" r="1044" fill="#af1e2d"/>
+        <path fill="#fff" d="M1980,1080a904.59,904.59,0,0,1-18,180H198a909,909,0,0,1,0-360H1962A904.59,904.59,0,0,1,1980,1080Z"/>
+        <text x="1080" y="830" text-anchor="middle" font-family="'Highway Gothic','Arial Narrow',sans-serif" font-size="210" fill="#fff" font-weight="700">DO NOT</text>
+        <text x="1080" y="1430" text-anchor="middle" font-family="'Highway Gothic','Arial Narrow',sans-serif" font-size="210" fill="#fff" font-weight="700">ENTER</text>
+      </svg>
+      <div class="name">Do Not Enter</div>
+      <div class="meaning">Don't drive in. Cars are coming the OTHER way — you'd hit them head-on.</div>
+    </div>
+
+    <div class="sign">
+      <!-- Source: https://upload.wikimedia.org/wikipedia/commons/a/a6/MUTCD_R6-1R.svg (PD-USGov-DOT); hand-crafted square to avoid 3:1 letterbox -->
+      <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+        <rect width="100" height="100" fill="#111" rx="6"/>
+        <rect x="4" y="4" width="92" height="92" fill="#111" stroke="#fff" stroke-width="1" rx="4"/>
+        <text x="50" y="48" text-anchor="middle" font-family="'Highway Gothic','Arial Narrow',sans-serif" font-size="16" fill="#fff" font-weight="700">ONE WAY</text>
+        <polygon points="20,60 68,60 68,54 84,66 68,78 68,72 20,72" fill="#fff"/>
+      </svg>
+      <div class="name">One Way</div>
+      <div class="meaning">Cars go one direction only — the way the arrow points.</div>
+    </div>
+
+    <div class="sign">
+      <!-- Source: https://upload.wikimedia.org/wikipedia/commons/1/19/MUTCD_W2-6.svg (PD-USGov-DOT) -->
+      <svg viewBox="0 0 253.999 254.001" xmlns="http://www.w3.org/2000/svg">
+        <path d="M3.622 118.218 118.22 3.622c4.829-4.83 12.731-4.83 17.56 0l114.6 114.596c4.827 4.83 4.827 12.732 0 17.562l-114.6 114.596c-4.829 4.833-12.731 4.833-17.56 0L3.621 135.78c-4.83-4.83-4.83-12.732 0-17.562" fill="#fcd116"/>
+        <path d="M6.952 119.293 119.291 6.951c4.244-4.236 11.176-4.236 15.416 0l112.339 112.342c4.24 4.24 4.24 11.176 0 15.413L134.707 247.048c-4.24 4.237-11.172 4.237-15.416 0L6.952 134.706c-4.236-4.237-4.236-11.172 0-15.413" fill="#000"/>
+        <path d="M11.34 122.248 122.248 11.34c2.614-2.614 6.89-2.614 9.508 0l110.902 110.907c2.614 2.614 2.614 6.893 0 9.507L131.755 242.661c-2.618 2.61-6.894 2.61-9.508 0L11.341 131.755c-2.614-2.614-2.614-6.893 0-9.507" fill="#fcd116"/>
+        <path d="M171.22 75.192c-9.905-6.985-22.478-11.938-34.794-12.954-18.545-1.651-37.465 4.826-51.562 17.145l-6.35-8.636c-.765-1.016-1.527-1.782-2.794-1.782-1.905-.123-3.56 1.4-3.56 3.179l-1.904 42.795 40.386-14.224c1.778-.504 2.667-2.54 2.032-4.318-.381-1.27-1.27-1.774-2.667-2.282l-10.03-3.556c9.776-7.62 22.603-11.176 34.922-10.164 9.27.89 18.669 4.576 25.911 10.033l10.41-15.236zM62.128 123.833c-1.016 12.065 1.143 25.273 6.477 36.449 8.131 17.018 23.24 30.095 41.02 35.937l-4.187 9.783c-.511 1.27-.762 2.282-.13 3.429.889 1.651 2.924 2.286 4.572 1.397l37.722-20.066-32.639-27.686c-1.4-1.143-3.56-1.016-4.826.504-.762 1.02-.762 2.036-.511 3.433l1.905 10.537c-11.427-4.699-21.079-13.839-26.413-25.146-4.067-8.382-5.464-18.411-4.575-27.178l-18.415-1.393zM159.029 193.298c10.925-5.076 21.34-13.712 28.32-23.872 10.672-15.498 14.355-35.179 10.415-53.34l10.671-1.274c1.267-.25 2.283-.504 3.045-1.65.889-1.521.384-3.684-1.143-4.7L174.015 85.86l-7.493 42.037c-.378 1.901.889 3.68 2.794 3.933 1.27.258 2.159-.377 3.305-1.266l8.125-6.731c1.65 12.065-1.394 25.019-8.51 35.306-5.203 7.62-13.08 13.97-21.335 17.653l8.128 16.506z" fill="#000"/>
+      </svg>
+      <div class="name">Roundabout ahead</div>
+      <div class="meaning">Circle ahead. Slow down, look LEFT — cars already in the circle go first. Wait for a gap, then go.</div>
+    </div>
+
+    <div class="sign">
+      <!-- Source: https://upload.wikimedia.org/wikipedia/commons/d/d5/MUTCD_W8-5.svg (PD-USGov-DOT) -->
+      <svg viewBox="0 0 253.997 254.016" xmlns="http://www.w3.org/2000/svg">
+        <path d="M3.633 118.203 118.187 3.638c4.847-4.85 12.777-4.85 17.625 0l114.55 114.565c4.847 4.843 4.847 12.774 0 17.624l-114.55 114.55c-4.848 4.852-12.778 4.852-17.625 0L3.633 135.828c-4.844-4.85-4.844-12.78 0-17.624" fill="#fcd116"/>
+        <path d="M6.396 120.022 120.008 6.402c3.845-3.845 10.135-3.845 13.984 0L247.6 120.022c3.846 3.845 3.846 10.135 0 13.98L133.992 247.614c-3.849 3.846-10.139 3.846-13.984 0L6.396 134.002c-3.846-3.845-3.846-10.135 0-13.98" fill="#000"/>
+        <path d="M9.947 123.522 123.503 9.952c1.92-1.923 5.07-1.923 6.989 0l113.555 113.57c1.923 1.922 1.923 5.066 0 6.985L130.492 244.066c-1.92 1.923-5.07 1.923-6.989 0L9.947 130.506c-1.922-1.918-1.922-5.062 0-6.984" fill="#fcd116"/>
+        <path d="M86.582 140.6c-.558.13-2.953-4.192-5.93-6.697-1.348-1.14-1.119-1.16-1.193-3.453-.17-5.3.896-5.221-2.35-10.94-.3-.53-1.527-2.55-.888-3.68.402-.72.818-1.22 1.118-1.71 1.185-1.951 2.618-.918 4.66-.413 3.19.783 7.694 2.124 10.675 3.207.868-4.177 1.711-7.885 3.75-11.014 3.588-5.503 2.738-3.99 2.378-10.665-.148-2.758.003-5.369.437-8.103-.723-1.77-3.02-2.31-4.74-2.353-.583-.018-1.99-1.016-2.474-1.5-.497-.504-1.947-.225-2.328-1.033-.522-1.097-.42-1.901.14-2.55.297-.343.71-.653 1.204-.928.49-.283 1.065-.537 1.668-.762 2.029-.762 4.477-1.267 5.867-1.715 3.817-1.044 4.717-.956 8.827-1.273 2.067-.16 2.695-.716 3.707-1.503.787-.61 1.662-1.563 1.46-2.692-.197-1.132-1.647-1.524-3.474-1.291-3.016.395-6.784 1.069-9.042-1.686-1.383-1.69-1.178-2.71-1.764-4.06.579 1.022 1.983 2.924 3.627 3.904 1.411.844 2.942 1.186 4.089.494 1.414-.857-1.76-2.776-.07-6.092-.498 4.48 4.113 6.029 6.063 5.112 2.526-1.182 1.03-9.434-2.61-11.201 4.046.007 4.36 4.36 5.419 7.218.589 1.587 2.148 1.14 3.002-.025 1.626-2.212 3.496-7.221-1.584-11.052 4.053 1.57 5.669 4.476 4.536 8.865-1.848 4.554-6.258 8.544-6.836 13.67 1.57-1.129 3.143-1.471 5.143-.811-1.704 2.72-1.83 4.244-4.939 5.147.237 3.037.678 6.16.014 9.15-.395 1.758-.568 2.587-.367 4.167 1.083 8.558-.402 9.945 7.73 19.371 3.26 3.782 8.466 5.352 12.636 8.227 2.918 2.01 3.542 2.23 7.052 2.77 5.867.902 8.425 1.156 13.399 6.123 3.683-.324 4.575-1.936 5.76-2.907 1.458-2.046 2.202-4.162 2.234-7.852 1.746 1.767 3.012 4.06 3.316 6.156.29 2.014-.967 3.351-2.844 4.811-2.067 1.352-3.778 2.706-6.632 2.77.939 2.734 1.31 5.327.674 7.99-.399 6.266-4.071 11.374 1.083 17.05 2.19 2.78 6.043 6.163 6.565 8.333.526 2.17-.74 4.808.07 13.331.904 2.067.019 2.854 3.994 5.14.088 1.944.18 3.88.272 5.824-3.383-1.358-4.04-3.143-5.55-4.265-3.728-2.773-3.756-6.699-4.099-15.021-.254-6.325-17.504-15.815-19.932-18.62-2.705-3.136-3.383-6.953-5.912-8.925-9.042-7.034-23.619-4.36-35.574-12.118-1.51-.614-3.299-.945-4.812-1.552-3.517-2.35-5.93-5.8-10.28-7.317.892 3.592.674 6.636 1.016 9.949.423 2.159 2.801 2.459 3.316 4.127-.138.815-.272 1.627-.41 2.441-.087.812.371 2.286-.267 2.431" fill="#000"/>
+      </svg>
+      <div class="name">Slippery when wet</div>
+      <div class="meaning">Road gets slippery when it rains. Slow down.</div>
+    </div>
+
+    <div class="sign">
+      <!-- Source: https://upload.wikimedia.org/wikipedia/commons/e/e7/MUTCD_W11-3.svg (PD-USGov-DOT) -->
+      <svg viewBox="0 0 210.058 210.062" xmlns="http://www.w3.org/2000/svg">
+        <path d="m206.65 96.806-93.38-93.37A11.698 11.698 0 0 0 105.036 0c-3.066 0-6.057 1.263-8.24 3.436L3.41 96.806A11.676 11.676 0 0 0 0 105.046c.021 3.066 1.249 6.065 3.411 8.234l93.384 93.367c2.163 2.162 5.193 3.411 8.248 3.415a11.773 11.773 0 0 0 8.234-3.415l93.373-93.363c2.798-2.798 3.99-7.01 3.136-10.862-.5-2.219-1.728-3.866-3.136-5.616" fill="#fcd116"/>
+        <path d="m204.343 110.973-93.37 93.366a8.444 8.444 0 0 1-5.93 2.456 8.436 8.436 0 0 1-5.927-2.456L5.708 110.97c-1.552-1.551-2.434-3.728-2.434-5.926.007-2.198.889-4.378 2.437-5.93L99.11 5.718a8.513 8.513 0 0 1 5.927-2.43c2.198 0 4.382.885 5.937 2.43l93.37 93.398a8.418 8.418 0 0 1 2.452 5.927 8.42 8.42 0 0 1-2.452 5.93" fill="#000"/>
+        <path d="M201.126 107.749a3.878 3.878 0 0 0 1.122-2.706c0-.98-.413-2.021-1.122-2.72L107.742 8.946a3.897 3.897 0 0 0-2.699-1.11c-.988 0-2.021.412-2.723 1.11L8.932 102.323c-.705.71-1.097 1.718-1.097 2.717.007.998.392 1.993 1.104 2.705l93.38 93.391c.703.699 1.743 1.112 2.724 1.112.991 0 2.004-.413 2.706-1.112l93.377-93.387z" fill="#fcd116"/>
+        <path d="M99.838 64.579c-.3-.452-.582-.854-1.086-1.105-.462-.229-.907-.416-1.44-.416-.529 0-1.11.004-1.587-.268-.445-.258-.815-.494-1.182-.857-.332-.335.155-.882.363-1.143.244-.304.544-.812.544-1.21 0-.261-.06-.498-.007-.755.049-.24.151-.459.19-.702.081-.505-.144-.97-.106-1.45.032-.47.089-.907-.038-1.38-.293-1.086-.964-1.665-1.898-2.197-1.697-.97-4.52.098-5.186 1.93a6.068 6.068 0 0 0-.272 3.143c.17 1.023.882 1.87 1.048 2.857.028.17.152.53.102.688-.074.247-.346.141-.578.081-.388-.095-1.062.014-1.415.19-.416.212-.857.385-1.348.385-.472 0-.963-.268-1.425-.2-1.89.267-2.854 1.784-2.854 3.608h-4.096l.727-13.388h55.541l.946 13.642h-34.54c-.096-.494-.106-1.012-.403-1.453m47.604 74.64c-.931-1.873-2.325-3.489-3.993-4.741-3.002-2.247-6.647-3.274-10.17-4.367-5.367-1.676-10.732-3.348-16.102-5.02a40.399 40.399 0 0 1-4.36-1.655c-1.933-.86-3.856-1.743-5.517-3.07-.812-.648-1.5-1.453-1.874-2.42-.377-.99-.173-2 .381-2.885.537-.864 1.31-1.563 1.99-2.314.727-.804 1.577-1.38 2.505-1.92 1.827-1.075 3.905-1.499 5.937-1.996 1.975-.476 3.965-.917 5.951-1.351 4.375-.953 8.439-1.746 12.81-2.688l.095-.021c1.503-.36 3.274-1.637 3.563-3.253l.028-5.281a2.67 2.67 0 0 0 .01-.237h5.151v-.793c0-.254-.07-.59.074-.801.279-.42.455-.857.533-1.348.077-.529.039-.98-.13-1.485-.082-.23-.188-.44-.283-.663-.056-.134.155-.586.187-.755.24-1.108-.003-2.046-.533-3.03-.197-.367-.095-1.073-.056-1.49.035-.352.028-.705.028-1.065 0-2.409.018-4.822-.06-7.231-.07-1.99-.2-4.075-1.185-5.842-.508-.91-1.22-1.595-2.053-2.216-.244-.18-.392-.19-.427-.473l-.127-.942c-.36-2.79-.723-5.584-1.087-8.374l-1.026-7.903c-.078-.606-.16-1.072-.434-1.626-.47-.938-1.552-1.457-2.561-1.528-.706-.045-52.663 0-56.642 0-1.02 0-2.1.004-2.886.79-.536.537-.886 1.133-.984 1.892-.11.867-.223 1.735-.332 2.603-.653 5.087-1.302 10.174-1.954 15.265-.025.19-.805.532-.967.695-.35.349-.751.67-1.051 1.072-.646.857-.953 1.792-1.256 2.805-.275.91-.325 2.014-.356 2.96-.04 1.08-.057 2.159-.089 3.231-.074 2.215.018 4.43.018 6.643 0 .176.063.44.032.61-.036.212-.3.498-.399.71a3.56 3.56 0 0 0-.324 1.527c0 .554.098 1.055.296 1.573.063.162-.18.41-.233.579a4.743 4.743 0 0 0-.198.8 3.047 3.047 0 0 0 .297 1.814c.14.275.307.44.314.758.014.413.02.826.032 1.238l5.15-.038v3.725c0 .021.007.046.018.074l.003.854c-.67.148-1.573.342-2.145.473-2.138.483-4.28.97-6.413 1.446-2.106.473-4.195 1.012-6.29 1.503-1.994.465-4.096.818-5.952 1.714-2.05.988-3.884 2.106-5.5 3.722-1.47 1.471-2.564 3.302-3.002 5.341-.472 2.198-.17 4.332.77 6.357.878 1.902 2.508 3.514 4.279 4.593 1.756 1.076 3.746 1.82 5.655 2.6 1.957.798 3.919 1.644 5.937 2.286 4.783 1.531 9.574 3.055 14.358 4.586 1.58.501 3.143 1.034 4.667 1.676 1.962.826 3.958 1.68 5.606 3.048 1.693 1.408 1.884 3.62 1.548 5.645-.151.913-.571 1.89-.97 2.723-.483 1.005-.96 1.993-1.545 2.95-1.15 1.865-2.473 3.615-4.067 5.136-1.602 1.527-3.352 2.818-5.243 3.968-.084.05-.176.106-.26.16L78 166.015c3.531-2.384 6.91-5.21 9.415-8.696 1.313-1.824 2.48-3.665 3.486-5.676a50.59 50.59 0 0 0 1.404-3.009c.374-.893.515-2.014.62-2.963.484-4.332-1.527-8.361-4.927-10.975-1.719-1.323-3.712-2.138-5.677-3.024-.409-.187-.853-.292-1.284-.426-1.051-.325-2.102-.657-3.15-.978-5.408-1.682-10.813-3.365-16.214-5.044-1.44-.448-2.84-.97-4.219-1.58-1.944-.865-3.93-1.744-5.613-3.063-.829-.653-1.538-1.46-1.958-2.434-.423-.991-.208-2.06.325-2.956.508-.844 1.316-1.644 2.01-2.336a12.36 12.36 0 0 1 2.502-1.922c1.834-1.076 3.93-1.517 5.973-1.997 2.127-.508 4.268-.967 6.402-1.45 4.273-.98 8.576-1.827 12.856-2.78a.751.751 0 0 0 .222-.078c1.524-.472 3.08-1.464 3.09-3.108l.007-5.56h45.445l-.007 4.534c-.691.159-1.626.374-2.155.494-2.131.48-4.251.97-6.382 1.45-2.13.476-4.251 1.016-6.382 1.513-2.028.47-4.043.9-5.958 1.75a17.993 17.993 0 0 0-5.447 3.715c-1.432 1.435-2.716 3.513-2.988 5.549-.145 1.083-.233 2.099-.074 3.192a9.185 9.185 0 0 0 .956 2.996 11.903 11.903 0 0 0 4.24 4.505c1.729 1.05 3.651 1.774 5.514 2.536 1.997.818 4.008 1.683 6.068 2.342 4.727 1.514 9.454 3.027 14.185 4.54 1.591.509 3.168 1.024 4.71 1.666 1.94.8 3.997 1.647 5.623 3.002.769.638 1.38 1.563 1.623 2.536.271 1.094.218 2.05.02 3.15-.186 1.013-.585 1.941-1 2.876-.42.931-.876 1.915-1.433 2.77-1.224 1.872-2.501 3.643-4.107 5.22-1.58 1.545-3.369 2.83-5.252 3.973-.085.056-.177.109-.261.162l3.372 5.479c3.538-2.392 6.932-5.24 9.44-8.728 1.33-1.86 2.512-3.757 3.535-5.8.967-1.93 1.838-3.923 1.958-6.106.113-2.082-.123-4.167-1.072-6.058" fill="#000"/>
+      </svg>
+      <div class="name">Deer crossing</div>
+      <div class="meaning">Deer cross here. Slow down at sunrise/sunset — they jump out fast.</div>
+    </div>
+
+    <div class="sign">
+      <!-- Source: https://upload.wikimedia.org/wikipedia/commons/d/d1/MUTCD_R3-4.svg (PD-USGov-DOT) -->
+      <svg viewBox="0 0 1728 1728" xmlns="http://www.w3.org/2000/svg">
+        <rect width="1728" height="1728" rx="108" fill="#fff"/>
+        <path d="M1620,2.2537A105.8661,105.8661,0,0,1,1725.7463,108V1620A105.8661,105.8661,0,0,1,1620,1725.7463H108A105.8661,105.8661,0,0,1,2.2537,1620V108A105.8661,105.8661,0,0,1,108,2.2537ZM108,0A108,108,0,0,0,0,108V1620a108,108,0,0,0,108,108H1620a108,108,0,0,0,108-108V108A108,108,0,0,0,1620,0Z"/>
+        <path d="M1620,27H108a81.0963,81.0963,0,0,0-81,81V1620a81.0964,81.0964,0,0,0,81,81H1620a81.0964,81.0964,0,0,0,81-81V108A81.0964,81.0964,0,0,0,1620,27Zm36,1593a36.0414,36.0414,0,0,1-36,36H108a36.0414,36.0414,0,0,1-36-36V108a36.0414,36.0414,0,0,1,36-36H1620a36.0414,36.0414,0,0,1,36,36Z"/>
+        <path d="M787.3644,898.0635,594,958.464,399.2805,898.0635c-32.0069-12.8686-62.0133,24.7473-42.009,53.4541L594.3227,1296l236.051-344.4824C850.378,922.8108,820.3716,885.1949,787.3644,898.0635Z"/>
+        <path d="M1224,1296H1044V702c0-99.2524-80.748-180-180-180S684,602.7476,684,702V958.4639H504V702a360,360,0,1,1,720,0Z"/>
+        <path d="M864,108c-417.53,0-756,338.47-756,756s338.47,756,756,756,756-338.47,756-756S1281.53,108,864,108Zm0,1368c-338,0-612-274-612-612A609.3813,609.3813,0,0,1,383.32,485.15l859.53,859.53A609.3814,609.3814,0,0,1,864,1476Zm480.68-233.15L485.15,383.32A609.3813,609.3813,0,0,1,864,252c338,0,612,274,612,612A609.3816,609.3816,0,0,1,1344.68,1242.85Z" fill="#af1e2d"/>
+      </svg>
+      <div class="name">No U-Turn</div>
+      <div class="meaning">No U-turn here. Don't flip around to go the other way.</div>
+    </div>
+
+    <div class="sign">
+      <!-- SMV emblem — hand-crafted (ANSI/ASAE S276 standard geometric; PD-shape; Wikimedia 404 for this variant) -->
+      <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+        <polygon points="50,6 96,87 4,87" fill="#af1e2d" stroke="#111" stroke-width="2"/>
+        <polygon points="50,20 86,83 14,83" fill="#dd7500"/>
+        <polygon points="50,32 78,80 22,80" fill="#ff6600"/>
+      </svg>
+      <div class="name">Slow-Moving Vehicle</div>
+      <div class="meaning">Orange triangle on the back of a farm truck or tractor. Means it's going under 40 km/h — pass carefully.</div>
+    </div>
+
+  </div>
+
+  <div class="callout" style="margin-top:2.5rem">
+    <strong>Pavement-line rule:</strong> <strong>Yellow</strong> separates traffic going opposite directions. <strong>White</strong> separates traffic going the same direction. That single rule unlocks like 5 quiz questions.
+  </div>
+
+  <h3 style="font-family:'Bagel Fat One',cursive;font-size:1.6rem;margin:2.5rem 0 .8rem">painted-on-the-road extras 🛣</h3>
+  <div class="card-grid">
+    <div class="card yolk">
+      <span class="tag">continuity lines</span>
+      <h3>Wider, closer-spaced white dashes</h3>
+      <p>Means your lane is <strong>ending or exiting</strong>. Change lanes if you want to keep going straight. They're a warning, not an invitation.</p>
+    </div>
+    <div class="card mint">
+      <span class="tag">two-way left turn lane</span>
+      <h3>The shared middle lane</h3>
+      <p>Centre lane bordered by <strong>double yellow with a broken yellow inside</strong>, plus left-turn arrows in both directions. Either side uses it to <em>stage</em> a left turn — never to drive in.</p>
+    </div>
+    <div class="card cherry">
+      <span class="tag">bike box</span>
+      <h3>Don't sit in the painted box</h3>
+      <p>Box with a bike symbol at the intersection = bike waiting area. Cars stop <strong>behind</strong> it. Bikes get to slot in front for the green.</p>
+    </div>
+    <div class="card rose">
+      <span class="tag">HOV diamond + arrows</span>
+      <h3>Pavement tells you the rules too</h3>
+      <p>White ◇ painted on the road = HOV lane. White arrows in a lane = you may only go that direction. Crosswalk = two parallel white lines; PXO adds a giant X painted in each lane.</p>
+    </div>
+  </div>
+
+  <h3 style="font-family:'Bagel Fat One',cursive;font-size:1.6rem;margin:2.5rem 0 .8rem">traffic light glossary 🚥</h3>
+  <table class="lil">
+    <tr><th>signal</th><th>what it means</th></tr>
+    <tr><td>🟢 Steady green</td><td>Go (still yield to pedestrians + cars in the intersection)</td></tr>
+    <tr><td>🟡 Steady yellow</td><td>Stop if safe. If too close, proceed cautiously.</td></tr>
+    <tr><td>🔴 Steady red</td><td>Stop. Right turn permitted after full stop unless sign says no.</td></tr>
+    <tr><td>🟢 Flashing green / advance green</td><td>You have advance right-of-way. Oncoming traffic has red. Turn left freely.</td></tr>
+    <tr><td>🔴 Flashing red</td><td>Treat like a stop sign.</td></tr>
+    <tr><td>🟡 Flashing yellow</td><td>Caution. Slow & proceed.</td></tr>
+    <tr><td>⚫ Light dead (power out)</td><td>Treat as 4-way stop.</td></tr>
+    <tr><td>❌ Red X overhead</td><td>Lane closed. Get out of it.</td></tr>
+    <tr><td>⚠️ Yellow X overhead</td><td>Lane closing. Move when safe.</td></tr>
+    <tr><td>⬇️ Green ↓ overhead</td><td>Lane open.</td></tr>
+  </table>
+</section>
+
+<!-- ───────── TEST DAY ───────── -->
+<section id="test-day">
+  <span class="scribble-tag">logistics gworl 📋</span>
+  <h2>show up <span class="accent">prepared</span>, leave with a licence</h2>
+  <div class="card-grid">
+    <div class="card">
+      <span class="tag">step 1 · before</span>
+      <h3>Bring this stuff</h3>
+      <p>· <strong>Original ID</strong> with full legal name + DOB + signature (passport, citizenship card, PR card, birth certificate)</p>
+      <p>· Glasses/contacts if you wear them — eye exam first</p>
+      <p>· Debit or credit card</p>
+      <p>· Be 16+</p>
+    </div>
+    <div class="card yolk">
+      <span class="tag">step 2 · arrive</span>
+      <h3>Walk in (no booking needed)</h3>
+      <p>Most DriveTest centres take walk-ins. Show up during business hours, do the eye test, pay $159.75, write the test on a touchscreen.</p>
+      <p class="pull">Check your local centre's hours though, some are weird about Mondays.</p>
+    </div>
+    <div class="card mint">
+      <span class="tag">step 3 · the test</span>
+      <h3>Pace yourself</h3>
+      <p>It's untimed. <strong>Read every question fully.</strong> All 4 answers will sound plausible — pick the most specific or most cautious.</p>
+      <p>If torn between two: the safer/more defensive option is usually right.</p>
+    </div>
+    <div class="card cherry">
+      <span class="tag">step 4 · after</span>
+      <h3>You pass — now what?</h3>
+      <p>G1 issued same day. Valid 5 years. Then:</p>
+      <p>· <strong>12 months</strong> until G2 road test (or 8 with BDE course)</p>
+      <p>· You can start driving with a supervisor immediately</p>
+      <p class="pull">Failed? Pay ~$16 and retry. No mandatory wait.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ───────── QUIZ ───────── -->
+<section id="quiz">
+  <span class="scribble-tag">test yourself bestie 🎯</span>
+  <h2>the <span class="accent">vibe</span> quiz</h2>
+  <p class="blurb">10 questions pulled from the most-tested topics. No tricks (mostly). Tap an answer, get instant feedback, see your score at the end.</p>
+
+  <div class="quiz-box">
+    <div id="quiz-stage"></div>
+    <div class="quiz-controls">
+      <span class="score-meter" id="meter">Q 1 / 10 · score 0</span>
+      <button id="restart" class="btn ghost" style="display:none;font-size:.9rem;padding:.5rem 1rem">restart</button>
+    </div>
+    <div class="quiz-result" id="result">
+      <div class="big" id="result-score">0/10</div>
+      <h3 id="result-title"></h3>
+      <p id="result-msg"></p>
+      <button id="restart2" class="btn">try again →</button>
+    </div>
+  </div>
+</section>
+
+<!-- ───────── TRICK Qs ───────── -->
+<section id="tricks">
+  <span class="scribble-tag">where ppl mess up 🪤</span>
+  <h2>the <span class="accent">trap</span> questions</h2>
+  <p class="blurb">These are the ones the test asks the same way every time, and that everyone gets wrong on first try. Tap to expand.</p>
+
+  <details class="trick">
+    <summary>Roundabout: which way do I yield?</summary>
+    <div class="body">
+      <p>Instinct says "yield right" because that's how 4-way stops work. <strong>Wrong.</strong> In a roundabout you yield to traffic <em>already inside</em> — and since traffic circulates counter-clockwise and you enter from the right, that's traffic coming from your <strong>LEFT</strong>.</p>
+      <div class="answer">✓ Yield to vehicles inside the roundabout (from your left)</div>
+    </div>
+  </details>
+
+  <details class="trick">
+    <summary>School bus: amber vs red flashing — what's the difference?</summary>
+    <div class="body">
+      <p><strong>Amber (yellow) flashing</strong> = bus is slowing to stop. Slow down + prepare to stop, but you don't legally have to stop yet.</p>
+      <p><strong>Red flashing + stop arm out</strong> = bus stopped, kids loading/unloading. Full stop required, both directions on undivided roads.</p>
+      <div class="answer">✓ Amber = prepare. Red = STOP.</div>
+    </div>
+  </details>
+
+  <details class="trick">
+    <summary>Skid recovery: which way do I steer?</summary>
+    <div class="body">
+      <p>Wrong-answer trap: "steer opposite the skid". Nope.</p>
+      <p>The MTO answer: <strong>steer in the direction you want to travel.</strong> If your back end slides right, you want to keep going forward — so steer right (which happens to be with the slide). Don't slam brakes. Ease off the gas.</p>
+      <div class="answer">✓ Steer where you want to go. Easy on the brakes.</div>
+    </div>
+  </details>
+
+  <details class="trick">
+    <summary>Pedestrian crossover vs. crosswalk — when do I drive again?</summary>
+    <div class="body">
+      <p>At a crossover (PXO, mid-block w/ overhead lights): you wait until the pedestrian is <strong>completely across the road and on the sidewalk</strong>. Not just past your lane.</p>
+      <p>At a regular intersection crosswalk: yield to pedestrians in your path, but you can move once they've cleared your turn radius.</p>
+      <p>Bonus: never pass another car within <strong>30 metres</strong> of a PXO.</p>
+      <div class="answer">✓ PXO = wait til they're ALL the way across, every time.</div>
+    </div>
+  </details>
+
+  <details class="trick">
+    <summary>U-turn: what's the FIRST thing to check?</summary>
+    <div class="body">
+      <p>Common wrong answers: "is there enough room", "can I see oncoming". Plausible — but not the MTO's official #1.</p>
+      <p>The official answer: <strong>check traffic regulations</strong>. Is the U-turn even legal here? Sign? Intersection rules? If yes, then check sightlines + room.</p>
+      <div class="answer">✓ Legal first, physical possibility second.</div>
+    </div>
+  </details>
+
+  <details class="trick">
+    <summary>4-way stop: 4 cars arrive at the exact same moment. Now what?</summary>
+    <div class="body">
+      <p>This is rare in the wild but the test loves it. The rule: <strong>yield to the right.</strong> Each driver yields to the vehicle on their right.</p>
+      <p>In a perfect deadlock, eye contact + slow waves work. The test isn't testing diplomacy though — pick "yield to the right".</p>
+      <div class="answer">✓ Yield right.</div>
+    </div>
+  </details>
+
+  <details class="trick">
+    <summary>Solid + broken yellow line — can I pass?</summary>
+    <div class="body">
+      <p>If you're on the side with the <strong>broken</strong> line, yes you may pass when safe. If you're on the side with the <strong>solid</strong> line, no.</p>
+      <p>Always read YOUR side of the line, not the other side.</p>
+      <div class="answer">✓ Broken on your side = green light to pass.</div>
+    </div>
+  </details>
+
+  <details class="trick">
+    <summary>Power outage at a traffic light — what do I do?</summary>
+    <div class="body">
+      <p>Don't just send it. Treat the dead intersection as an <strong>all-way stop</strong>. Stop fully, yield to vehicles already in or to your right, then proceed.</p>
+      <div class="answer">✓ Dark light = 4-way stop.</div>
+    </div>
+  </details>
+
+  <details class="trick">
+    <summary>Foggy day — high beams or low beams?</summary>
+    <div class="body">
+      <p>Counter-intuitive: <strong>low beams.</strong> High beams reflect off the moisture droplets and create a wall of glare that reduces visibility further.</p>
+      <div class="answer">✓ Low beams in fog. Always.</div>
+    </div>
+  </details>
+
+  <details class="trick">
+    <summary>I see flashing red lights AT a railway crossing. Train isn't here yet. Can I cross?</summary>
+    <div class="body">
+      <p>No. Flashing red = stop. Wait until <strong>lights stop flashing AND</strong> (if there's a gate) it's fully raised. A train is coming or already passing — you cannot judge train speed/distance accurately.</p>
+      <div class="answer">✓ Lights flashing = full stop. Wait it out.</div>
+    </div>
+  </details>
+</section>
+
+<!-- ───────── TLDR ───────── -->
+<section id="tldr">
+  <span class="scribble-tag">night-before panic mode 🌙</span>
+  <h2>the actual <span class="accent">tl;dr</span> cheat sheet</h2>
+  <p class="blurb">If you read literally nothing else, read this. These are the highest-frequency facts on the actual test.</p>
+
+  <div class="cheat-grid">
+
+    <div class="cheat">
+      <h4>📏 Numbers to memorize</h4>
+      <ul>
+        <li>Default urban speed: <strong>50 km/h</strong></li>
+        <li>Default rural speed: <strong>80 km/h</strong></li>
+        <li>Following: <strong>2 sec</strong> normal, <strong>3+ sec</strong> rain, <strong>4+ sec</strong> snow/ice</li>
+        <li>Signal before turn: <strong>30 m</strong> in city, <strong>150 m</strong> on hwy</li>
+        <li>Stop behind school bus: <strong>20 m</strong></li>
+        <li>Stop from rail: <strong>5 m</strong></li>
+        <li>Park from hydrant / intersection / light: <strong>3 / 9 / 15 m</strong></li>
+        <li>Pass cyclist: <strong>1 m</strong> minimum</li>
+        <li>Tire tread minimum: <strong>1.5 mm</strong></li>
+        <li>Headlight visibility: <strong>150 m</strong></li>
+        <li>HOV lane: <strong>2+</strong> occupants (or green-plate EV)</li>
+        <li>Lending your licence: <strong>never. illegal.</strong></li>
+      </ul>
+    </div>
+
+    <div class="cheat">
+      <h4>🚦 Light cheat sheet</h4>
+      <ul>
+        <li><strong>Green</strong> = go, yield to peds</li>
+        <li><strong>Yellow</strong> = stop if safe</li>
+        <li><strong>Red</strong> = stop (right turn ok after stop)</li>
+        <li><strong>Flashing green</strong> = advance left, you own it</li>
+        <li><strong>Flashing red</strong> = stop sign</li>
+        <li><strong>Flashing yellow</strong> = caution</li>
+        <li><strong>Power out</strong> = 4-way stop</li>
+        <li><strong>Red X</strong> overhead = lane closed</li>
+      </ul>
+    </div>
+
+    <div class="cheat">
+      <h4>🛑 Right-of-way</h4>
+      <ul>
+        <li>4-way stop tie: yield <strong>right</strong></li>
+        <li>Uncontrolled intersection: yield <strong>right</strong></li>
+        <li>Roundabout: yield <strong>left</strong> (inside traffic)</li>
+        <li>Left turn: yield to oncoming + peds</li>
+        <li>Entering from driveway: yield to all</li>
+        <li>Pedestrians at PXO: wait til fully across</li>
+        <li>Police > traffic light. Always.</li>
+      </ul>
+    </div>
+
+    <div class="cheat">
+      <h4>🆔 G1 rules</h4>
+      <ul>
+        <li>BAC: <strong>0.00</strong> always</li>
+        <li>Supervisor: G+ licence, 4+ years, BAC < 0.05</li>
+        <li>No driving midnight–5 a.m.</li>
+        <li>No 400-series / QEW / Gardiner / DVP / E.C. Row / Conestoga</li>
+        <li>One belt per body</li>
+        <li>Wait 12 mo for G2 (or 8 with BDE)</li>
+      </ul>
+    </div>
+
+    <div class="cheat">
+      <h4>🪧 Sign quick-decode</h4>
+      <ul>
+        <li>Octagon → STOP</li>
+        <li>Triangle (point down) → YIELD</li>
+        <li>Yellow ◇ → permanent warning</li>
+        <li>Orange ◇ → construction</li>
+        <li>Pentagon → school zone</li>
+        <li>Yellow circle → railway ahead</li>
+        <li>X-buck → at the railway</li>
+        <li>Green = info · Blue = services · Brown = parks</li>
+      </ul>
+    </div>
+
+    <div class="cheat">
+      <h4>💸 Big-deal demerits</h4>
+      <ul>
+        <li>Leaving scene: <strong>7</strong></li>
+        <li>School bus pass: <strong>6</strong> + $400–$2,000</li>
+        <li>Careless / racing: <strong>6</strong></li>
+        <li>Speeding 50+: <strong>6</strong></li>
+        <li>Following too close: <strong>4</strong></li>
+        <li>Failing to yield PXO: <strong>4</strong></li>
+        <li>Novice suspension threshold: <strong>9</strong> pts</li>
+      </ul>
+    </div>
+
+    <div class="cheat">
+      <h4>🌧 Bad weather moves</h4>
+      <ul>
+        <li>Fog → low beams, never high</li>
+        <li>Snow → at least 4 sec following</li>
+        <li>Hydroplane → ease off gas, steer straight</li>
+        <li>Skid → steer where you want to go</li>
+        <li>No cruise control in snow / heavy rain</li>
+        <li>Black ice = invisible. Bridges first.</li>
+      </ul>
+    </div>
+
+    <div class="cheat">
+      <h4>📝 Test-day vibes</h4>
+      <ul>
+        <li>40 Qs · 20 signs + 20 rules</li>
+        <li>Pass <strong>each</strong> section ≥16/20</li>
+        <li>Untimed. Read carefully.</li>
+        <li>Stuck? Pick the safer/more cautious answer.</li>
+        <li>$159.75 covers test + G2 + 5-yr licence</li>
+        <li>Failed? ~$16 retake, no waiting period</li>
+      </ul>
+    </div>
+  </div>
+
+  <p style="text-align:center;margin-top:3rem;font-family:'Caveat',cursive;font-size:1.8rem;color:var(--yolk);font-weight:700">you've got this. go pass. 💛</p>
+</section>
+
+<footer>
+  <p class="smol">made with chaotic energy + actual MTO sources ✿</p>
+  <p class="sources">
+    All facts sourced from the Ontario MTO Official Driver's Handbook, ontario.ca, and DriveTest.ca, cross-referenced May 2026.<br>
+    For the binding legal version: search "Ontario Driver's Handbook" on ontario.ca.<br>
+    This page is a study aid — not a legal substitute. Drive safe, bestie.
+  </p>
+</footer>
+
+<script>
+// ── tabs ──
+document.querySelectorAll(".tab-btn").forEach(btn=>{
+  btn.addEventListener("click",()=>{
+    const id=btn.dataset.tab;
+    document.querySelectorAll(".tab-btn").forEach(b=>b.classList.remove("active"));
+    document.querySelectorAll(".tab-panel").forEach(p=>p.classList.remove("active"));
+    btn.classList.add("active");
+    document.getElementById("tab-"+id).classList.add("active");
+  });
+});
+
+// ── progress bar + active nav ──
+const prog=document.getElementById("progress");
+const navLinks=document.querySelectorAll("nav.top a");
+const sections=[...navLinks].map(a=>document.querySelector(a.getAttribute("href"))).filter(Boolean);
+window.addEventListener("scroll",()=>{
+  const max=document.documentElement.scrollHeight-window.innerHeight;
+  prog.style.width=(window.scrollY/max*100)+"%";
+  let active=0;
+  sections.forEach((s,i)=>{ if(s && s.getBoundingClientRect().top<120) active=i; });
+  navLinks.forEach((a,i)=>a.classList.toggle("active",i===active));
+});
+
+// ── quiz ──
+const QUESTIONS=[
+  {q:"You're cruising downtown Toronto, no speed sign in sight. What's the default speed limit?",
+    choices:["40 km/h","50 km/h","60 km/h","70 km/h"],correct:1,
+    why:"Default urban speed in Ontario is 50 km/h unless posted otherwise."},
+  {q:"A school bus has flashing AMBER (yellow) lights. What do you do?",
+    choices:["Full stop, both directions","Slow down, prepare to stop","Pass quickly while you can","Honk and continue"],correct:1,
+    why:"Amber = bus is slowing to stop. Prepare to stop. Red flashing + stop arm = the actual full-stop signal."},
+  {q:"You're at a 4-way stop. Two cars arrive at the same time. Who goes?",
+    choices:["The bigger vehicle","Whoever signals first","Driver on the right","Driver going straight"],correct:2,
+    why:"Tie at a 4-way: yield to the driver on your right."},
+  {q:"Entering a roundabout. Who do you yield to?",
+    choices:["Vehicles to your right","Vehicles already inside the circle","The first car at the entrance","No one — just merge"],correct:1,
+    why:"Roundabout traffic flows counter-clockwise. You enter from the right, so circulating traffic comes from your LEFT — and they have right-of-way."},
+  {q:"What's the BAC limit for a G1 driver?",
+    choices:["0.00","0.05","0.08","Same as full G"],correct:0,
+    why:"G1, G2, M1, M2, and anyone 21 or under: zero tolerance. 0.00 BAC, full stop."},
+  {q:"Your car starts to skid. What's the FIRST thing you do?",
+    choices:["Slam the brakes","Steer in the opposite direction of the skid","Steer in the direction you want to go","Pull the parking brake"],correct:2,
+    why:"Steer where you want to travel. Don't slam the brakes — ease off the gas first."},
+  {q:"How far back must you stop behind a stopped school bus with flashing red lights?",
+    choices:["5 metres","10 metres","20 metres","50 metres"],correct:2,
+    why:"At least 20 metres behind a stopped school bus with flashing reds."},
+  {q:"What does a single broken YELLOW line on your side of the road mean?",
+    choices:["No passing","Passing permitted if safe","Slow down","School zone"],correct:1,
+    why:"Broken on your side = you may pass when safe. Solid on your side = no pass. Yellow always = opposing traffic."},
+  {q:"You're driving in heavy fog. Which headlights do you use?",
+    choices:["High beams","Low beams","Hazards","No lights"],correct:1,
+    why:"High beams reflect off moisture and reduce visibility. Low beams + slower speed = correct move."},
+  {q:"You arrive at an intersection where the traffic lights are completely out. What do you do?",
+    choices:["Sail through cautiously","Treat as a 4-way stop","Honk to claim right of way","Wait until they come back on"],correct:1,
+    why:"Power outage = treat the intersection as an all-way stop. Yield to vehicles already in or to your right."}
+];
+
+let qIdx=0,score=0;
+const stage=document.getElementById("quiz-stage");
+const meter=document.getElementById("meter");
+const result=document.getElementById("result");
+
+function renderQ(){
+  const q=QUESTIONS[qIdx];
+  meter.textContent=`Q ${qIdx+1} / ${QUESTIONS.length} · score ${score}`;
+  stage.innerHTML=`
+    <div class="quiz-q">
+      <span class="qnum">question ${qIdx+1}</span>
+      <h3>${q.q}</h3>
+      <div class="choices">
+        ${q.choices.map((c,i)=>`<button class="choice" data-i="${i}"><span class="letter">${"ABCD"[i]}</span><span>${c}</span></button>`).join("")}
+      </div>
+      <div class="feedback" id="fb"></div>
+    </div>`;
+  stage.querySelectorAll(".choice").forEach(btn=>{
+    btn.addEventListener("click",()=>{
+      const pick=+btn.dataset.i, q=QUESTIONS[qIdx];
+      stage.querySelectorAll(".choice").forEach(b=>{
+        b.disabled=true;
+        const i=+b.dataset.i;
+        if(i===q.correct) b.classList.add("correct");
+        else if(i===pick) b.classList.add("wrong");
+      });
+      const fb=document.getElementById("fb");
+      if(pick===q.correct){
+        score++;
+        fb.textContent=`✓ correct! ${q.why}`;
+      } else {
+        fb.textContent=`✗ nope. ${q.why}`;
+      }
+      fb.classList.add("show");
+      meter.textContent=`Q ${qIdx+1} / ${QUESTIONS.length} · score ${score}`;
+      setTimeout(()=>{
+        qIdx++;
+        if(qIdx>=QUESTIONS.length) finish();
+        else renderQ();
+      },2000);
+    });
+  });
+}
+
+function finish(){
+  stage.style.display="none";
+  result.classList.add("show");
+  document.getElementById("result-score").textContent=`${score}/${QUESTIONS.length}`;
+  const pct=score/QUESTIONS.length;
+  let title,msg;
+  if(pct>=0.9){title="DriveTest who?? 💅";msg="You're absolutely cooked for this. Go book the test."}
+  else if(pct>=0.7){title="Solid. You're like 90% there.";msg="Skim the trick questions one more time and you're golden."}
+  else if(pct>=0.5){title="Hm okay we have work to do 😬";msg="Re-read the Rules tab and the cheat sheet. Try again."}
+  else {title="bestie. literally read the page first.";msg="Scroll back up. Take your time. Come back."}
+  document.getElementById("result-title").textContent=title;
+  document.getElementById("result-msg").textContent=msg;
+  document.getElementById("restart").style.display="inline-block";
+}
+
+function restart(){
+  qIdx=0;score=0;
+  stage.style.display="block";
+  result.classList.remove("show");
+  document.getElementById("restart").style.display="none";
+  renderQ();
+}
+document.getElementById("restart").addEventListener("click",restart);
+document.getElementById("restart2").addEventListener("click",restart);
+renderQ();
+
+// ── flip cards (none used currently but ready) ──
+document.querySelectorAll(".flip").forEach(f=>f.addEventListener("click",()=>f.classList.toggle("flipped")));
+</script>
+
+</body>
+</html>
