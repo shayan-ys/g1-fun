@@ -74,7 +74,7 @@ PRs welcome, especially:
 
 ## Support
 
-If this helped you pass, consider [buying me a coffee](https://buymeacoffee.com/shayan_ys).
+If this helped you pass, consider <a href="https://buymeacoffee.com/shayan_ys"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" height="32" valign="middle"></a>
 
 ---
 
